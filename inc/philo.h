@@ -9,27 +9,43 @@
 # define BLUE "\033[0;34m"
  #define RESET "\033[0m"
 
+struct s_data;
+
 typedef struct s_philo
 {
 	int				n;
-	// int				time_die;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	int				meals;
 	int				nbr_left_fork;
 	int				nbr_right_fork;
-}	t_philo;
+	long			time_last_meal;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	struct s_data	*data;
+}					t_philo;
 
 typedef struct s_data
 {
 	int				p;
+	int				has_died;
+	long			time_start;
+	long			time_die;
+	long			time_eat;
+	long			time_sleep;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t print;
 	t_philo			*philo;
-	// int				time_eat;
-	// int				time_sleep;
-}	t_data;
+}					t_data;
 
+void	init_struct(char **argv, t_data *data);
+
+void*	dining(void *arg);
 void*	take_forks(void *arg);
-void*	eat(void *arg);
+void*	eating(void *arg);
 void*	sleeping(void *arg);
+
+void	death_monitor(t_data *data);
+void	print_state(char *str, char *color, t_philo *philo);
+long	ft_time(void);
+
 
 #endif
