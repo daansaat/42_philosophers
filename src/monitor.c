@@ -13,15 +13,15 @@ void	death_monitor(t_data *data)
 		while (i < data->p)
 		{
 			time = ft_time();
-			if (time - data->philo[i].time_last_meal > data->time_die)
+			if (time - data->philo[i].time_last_meal > data->time_die \
+			&& data->philo[i].meals != 0)
 			{
-				if (data->philo[i].meals && data->philo[i].meals == 0)
-					break;
 				data->has_died = 1;
 				print_state("has died", RED, &data->philo[i]);
 				printf("%d\n", data->philo[i].meals);
 				return;
 			}
+			i++;
 		}
 		i = 0;
 	}

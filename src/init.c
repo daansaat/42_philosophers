@@ -29,6 +29,7 @@ void	init_struct(char **argv, t_data *data)
 		data->philo[i].nbr_left_fork = i;
 		data->philo[i].nbr_right_fork = (i + 1) % data->p;
 		data->philo[i].data = data;
+		data->philo[i].meals = -1;
 		if (argv[5])
 			data->philo[i].meals = ft_atoi(argv[5]);
 		data->philo[i].time_last_meal = data->time_start;
