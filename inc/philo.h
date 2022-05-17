@@ -14,12 +14,10 @@ struct s_data;
 typedef struct s_philo
 {
 	int				n;
+	int				lfork;
+	int				rfork;
 	int				meals;
-	int				nbr_left_fork;
-	int				nbr_right_fork;
 	long			time_last_meal;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
 	struct s_data	*data;
 }					t_philo;
 
@@ -34,9 +32,11 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t print;
 	t_philo			*philo;
+
 }					t_data;
 
 void	init_struct(char **argv, t_data *data);
+void	init_threads(t_data *data);
 
 void*	dining(void *arg);
 void*	take_forks(void *arg);

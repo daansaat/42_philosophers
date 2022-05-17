@@ -18,8 +18,7 @@ void	death_monitor(t_data *data)
 			{
 				data->has_died = 1;
 				print_state("has died", RED, &data->philo[i]);
-				printf("%d\n", data->philo[i].meals);
-				return;
+				return ;
 			}
 			i++;
 		}

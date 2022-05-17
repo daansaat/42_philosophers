@@ -1,5 +1,6 @@
 #include "philo.h"
 #include "libft.h"
+#include <stdio.h>
 
 void	init_struct(char **argv, t_data *data)
 {
@@ -24,15 +25,34 @@ void	init_struct(char **argv, t_data *data)
 	while (i < data->p)
 	{
 		data->philo[i].n = i;
-		data->philo[i].left_fork = &data->forks[i];
-		data->philo[i].right_fork = &data->forks[(i + 1) % data->p];
-		data->philo[i].nbr_left_fork = i;
-		data->philo[i].nbr_right_fork = (i + 1) % data->p;
-		data->philo[i].data = data;
+		data->philo[i].lfork = i;
+		data->philo[i].rfork = (i + 1) % data->p;
 		data->philo[i].meals = -1;
 		if (argv[5])
 			data->philo[i].meals = ft_atoi(argv[5]);
 		data->philo[i].time_last_meal = data->time_start;
+		data->philo[i].data = data;
+		i++;
+	}
+}
+
+void	init_threads(t_data *data)
+{
+	pthread_t		*threads;
+	int				i;
+	
+	threads = malloc(sizeof(pthread_t) * data->p);
+	i = 0;
+	while (i < data->p)
+	{
+		pthread_create(&threads[i], NULL, &dining, (void*)&data->philo[i]);
+		i++;
+	}
+	i = 0;
+	// death_monitor(data);
+	while (i < data->p)
+	{
+		pthread_join(threads[i], NULL);
 		i++;
 	}
 }

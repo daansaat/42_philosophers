@@ -8,18 +8,18 @@ void*	take_forks(void *arg)
 
 	philo = arg;
 	print_state("is thinking", PURPLE, philo);
-	if (philo->nbr_left_fork < philo->nbr_right_fork)
+	if (philo->lfork < philo->rfork)
 	{
-		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
 		print_state("has taken left fork", BLUE, philo);
-		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
 		print_state("has taken right fork", BLUE, philo);
 	}
 	else
 	{
-		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
 		print_state("has taken right fork", BLUE, philo);
-		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
 		print_state("has taken left fork", BLUE, philo);
 	}
 	return (0);
@@ -32,7 +32,7 @@ void*	eating(void *arg)
 	philo = arg;
 	philo->time_last_meal = ft_time();
 	print_state("is eating", GREEN, philo);
-	if (philo->meals)
+	if (philo->meals > 0)
 		philo->meals -= 1;
 	usleep(philo->data->time_eat * 1000);
 	return (0);
@@ -44,8 +44,8 @@ void*	sleeping(void *arg)
 	
 	philo = arg;
 	print_state("is sleeping", YELLOW, philo);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
+	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
 	usleep(philo->data->time_sleep * 1000);
 	return (0);
 }
@@ -55,16 +55,16 @@ void*	dining(void *arg)
 	t_philo			*philo;
 
 	philo = arg;
-	while (!philo->data->has_died)
+	while (!philo->data->has_died)// && philo->meals != 0)
 	{
-		if (!philo->data->has_died)
+		if (!philo->data->has_died)// && philo->meals != 0)
 			take_forks(philo);
-		if (!philo->data->has_died)
+		// break ;
+		if (!philo->data->has_died)// && philo->meals != 0)
 			eating(philo);
-		printf("%d\n", philo->meals);
-		// if (philo->meals <= 0)
-		// 	break ;
-		if (!philo->data->has_died)
+		// if (philo->meals == 0)
+		// 	return (0);
+		if (!philo->data->has_died)// && philo->meals != 0)
 			sleeping(philo);
 	}
 	return (0);
