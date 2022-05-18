@@ -25,6 +25,7 @@ typedef struct s_data
 {
 	int				p;
 	int				has_died;
+	int				done_eating;
 	long			time_start;
 	long			time_die;
 	long			time_eat;

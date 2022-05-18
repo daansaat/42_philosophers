@@ -2,13 +2,26 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+static void	meals_monitor(t_data * data)
+{
+	int	i;
+
+	i = 0;
+	while (data->philo[i].meals == 0)
+	{
+		i++;
+		if (i == data->p)
+			data->done_eating = 1;
+	}
+}
+
 void	death_monitor(t_data *data)
 {
 	int		i;
 	long	time;
 
 	i = 0;
-	while (1)
+	while (!data->done_eating)
 	{
 		while (i < data->p)
 		{
@@ -22,6 +35,7 @@ void	death_monitor(t_data *data)
 			}
 			i++;
 		}
+		meals_monitor(data);
 		i = 0;
 	}
 }
