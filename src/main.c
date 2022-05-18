@@ -9,6 +9,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	init_struct(argv, &data);
+	init_mutex(&data);
 	init_threads(&data);
 	return (0);
 }

@@ -36,6 +36,7 @@ typedef struct s_data
 }					t_data;
 
 void	init_struct(char **argv, t_data *data);
+void	init_mutex(t_data *data);
 void	init_threads(t_data *data);
 
 void*	dining(void *arg);

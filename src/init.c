@@ -15,13 +15,6 @@ void	init_struct(char **argv, t_data *data)
 	data->time_eat = ft_atoi(argv[3]);
 	data->time_sleep = ft_atoi(argv[4]);
 	i = 0;
-	pthread_mutex_init(&data->print, NULL);
-	while (i < data->p)
-	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		i++;
-	}
-	i = 0;
 	while (i < data->p)
 	{
 		data->philo[i].n = i;
@@ -35,6 +28,19 @@ void	init_struct(char **argv, t_data *data)
 		i++;
 	}
 }
+
+void	init_mutex(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->p)
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
+	pthread_mutex_init(&data->print, NULL);
+}	
 
 void	init_threads(t_data *data)
 {
