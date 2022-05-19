@@ -9,11 +9,17 @@ void*	meals_monitor(void *arg)
 
 	data = arg;
 	i = 0;
-	while (data->philo[i].meals == 0)
+	while (i < data->p)
 	{
-		i++;
-		if (i == data->p)
-			data->done_eating = 1;
+		pthread_mutex_lock(&data->print);
+		while (data->philo[i].meals == 0)
+		{
+			i++;
+			if (i == data->p)
+				data->done_eating = 1;
+		}
+		pthread_mutex_unlock(&data->print);
+		i = 0;
 	}
 	return (0);
 }
@@ -32,8 +38,11 @@ void	death_monitor(t_data *data)
 			if (time - data->philo[i].time_last_meal > data->time_die \
 			&& data->philo[i].meals != 0)
 			{
-				print_state("has died", RED, &data->philo[i]);
+				pthread_mutex_lock(&data->print);
+				printf("has died\n");
+				// print_state("has died", RED, &data->philo[i]);
 				data->has_died = 1;
+				pthread_mutex_unlock(&data->print);
 				return ;
 			}
 			i++;
