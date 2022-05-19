@@ -1,6 +1,7 @@
 #include "philo.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void*	meals_monitor(void *arg)
 {
@@ -18,6 +19,7 @@ void*	meals_monitor(void *arg)
 			if (i == data->p)
 			{
 				data->done_eating = 1;
+				usleep(3000000);
 				// pthread_mutex_unlock(&data->print);
 				break ;
 				printf("done\n");
@@ -52,6 +54,7 @@ void	death_monitor(t_data *data)
 				printf("has died\n");
 				// print_state("has died", RED, &data->philo[i]);
 				data->has_died = 1;
+				usleep(3000000);
 				pthread_mutex_unlock(&data->print);
 				return ;
 			}
