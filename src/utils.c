@@ -12,13 +12,13 @@ long	ft_time(void)
 
 void	print_state(char *str, char *color, t_philo *philo)
 {
-	long	timestamp;
+	long	time_ms;
 
 	pthread_mutex_lock(&philo->data->print);
 	if (!philo->data->has_died && !philo->data->done_eating)
 	{
-		timestamp = ft_time() - philo->data->time_start;
-		printf("%ldms %sP%d %s\n%s", timestamp, color, philo->n + 1, str, RESET);
+		time_ms = ft_time() - philo->data->time_start;
+		printf("%ldms %sP%d %s\n%s", time_ms, color, philo->n + 1, str, RESET);
 	}
 	pthread_mutex_unlock(&philo->data->print);
 }

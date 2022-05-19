@@ -32,20 +32,22 @@ typedef struct s_data
 	long			time_sleep;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t print;
+	pthread_mutex_t	meals_monitor;
 	t_philo			*philo;
 
 }					t_data;
 
-void	init_struct(char **argv, t_data *data);
-void	init_mutex(t_data *data);
-void	init_threads(t_data *data);
+int		init_struct(char **argv, t_data *data);
+void	init_philo(char **argv, t_data *data);
+int		init_threads(t_data *data);
+int		init_mutex(t_data *data);
 
 void*	dining(void *arg);
-
 void	death_monitor(t_data *data);
-void*	meals_monitor(void *arg);
-void	print_state(char *str, char *color, t_philo *philo);
-long	ft_time(void);
+void	meals_monitor(t_philo *philo);
+
 int		ft_atoi(const char *str);
+long	ft_time(void);
+void	print_state(char *str, char *color, t_philo *philo);
 
 #endif

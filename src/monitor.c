@@ -3,37 +3,21 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void*	meals_monitor(void *arg)
+void	meals_monitor(t_philo *philo)
 {
-	t_data	*data;
 	int	i;
 
-	data = arg;
+	pthread_mutex_lock(&philo->data->print);
 	i = 0;
-	while (i < data->p)
+	printf("%ldms %sP%d is eating\n%s", ft_time() - philo->data->time_start, \
+	GREEN, philo->n + 1, RESET);
+	while (philo->data->philo[i].meals == 0 && i < philo->data->p)
 	{
-		pthread_mutex_lock(&data->print);
-		while (data->philo[i].meals == 0)
-		{
-			i++;
-			if (i == data->p)
-			{
-				data->done_eating = 1;
-				usleep(3000000);
-				// pthread_mutex_unlock(&data->print);
-				break ;
-				printf("done\n");
-			}
-		}
-		pthread_mutex_unlock(&data->print);
-		if (data->done_eating == 1)
-		{
-			printf("here ok\n");
-			return (0);
-		}
-		i = 0;
+		i++;
+		if (i == philo->data->p)
+			philo->data->done_eating = 1;
 	}
-	return (0);
+	pthread_mutex_unlock(&philo->data->print);
 }
 
 void	death_monitor(t_data *data)
@@ -51,16 +35,14 @@ void	death_monitor(t_data *data)
 			&& data->philo[i].meals != 0)
 			{
 				pthread_mutex_lock(&data->print);
-				printf("has died\n");
-				// print_state("has died", RED, &data->philo[i]);
+				printf("%ldms %sP%d has died\n%s", ft_time() - \
+				data->time_start, RED, data->philo[i].n + 1, RESET);
 				data->has_died = 1;
-				usleep(3000000);
 				pthread_mutex_unlock(&data->print);
 				return ;
 			}
 			i++;
 		}
-		// meals_monitor(data);
 		i = 0;
 	}
 }

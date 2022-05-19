@@ -2,6 +2,29 @@
 #include <stdio.h>
 #include <unistd.h>
 
+static void	sleeping(t_philo *philo)
+{
+	print_state("is sleeping", YELLOW, philo);
+	usleep(philo->data->time_sleep * 1000);
+	print_state("is thinking", PURPLE, philo);
+}
+
+static void	eating(t_philo *philo)
+{
+	philo->time_last_meal = ft_time();
+	pthread_mutex_lock(&philo->data->meals_monitor);
+	if (philo->meals > 0)
+		philo->meals -= 1;
+	if (philo->meals == 0 && !philo->data->done_eating)
+		meals_monitor(philo);
+	else
+		print_state("is eating", GREEN, philo);
+	pthread_mutex_unlock(&philo->data->meals_monitor);
+	usleep(philo->data->time_eat * 1000);
+	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
+	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
+}
+
 static void	free_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
@@ -10,7 +33,6 @@ static void	free_forks(t_philo *philo)
 
 static void	take_forks(t_philo *philo)
 {
-	print_state("is thinking", PURPLE, philo);
 	if (philo->lfork < philo->rfork)
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
@@ -27,27 +49,9 @@ static void	take_forks(t_philo *philo)
 	}
 	if (philo->data->has_died || philo->data->done_eating)
 		free_forks(philo);
+	else
+		eating(philo);
 }
-
-static void	eating(t_philo *philo)
-{
-	philo->time_last_meal = ft_time();
-	pthread_mutex_lock(&philo->data->print);
-	if (philo->meals > 0)
-		philo->meals -= 1;
-	pthread_mutex_unlock(&philo->data->print);
-	print_state("is eating", GREEN, philo);
-	usleep(philo->data->time_eat * 1000);
-	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
-	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
-}
-
-static void	sleeping(t_philo *philo)
-{
-	print_state("is sleeping", YELLOW, philo);
-	usleep(philo->data->time_sleep * 1000);
-}
-
 
 void*	dining(void *arg)
 {
@@ -58,8 +62,6 @@ void*	dining(void *arg)
 	{
 		if (!philo->data->has_died && !philo->data->done_eating)
 			take_forks(philo);
-		if (!philo->data->has_died && !philo->data->done_eating)
-			eating(philo);
 		if (!philo->data->has_died && !philo->data->done_eating)
 			sleeping(philo);
 	}
