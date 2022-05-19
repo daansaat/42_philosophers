@@ -2,10 +2,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static void	meals_monitor(t_data * data)
+void*	meals_monitor(void *arg)
 {
+	t_data	*data;
 	int	i;
 
+	data = arg;
 	i = 0;
 	while (data->philo[i].meals == 0)
 	{
@@ -13,6 +15,7 @@ static void	meals_monitor(t_data * data)
 		if (i == data->p)
 			data->done_eating = 1;
 	}
+	return (0);
 }
 
 void	death_monitor(t_data *data)
@@ -29,13 +32,13 @@ void	death_monitor(t_data *data)
 			if (time - data->philo[i].time_last_meal > data->time_die \
 			&& data->philo[i].meals != 0)
 			{
-				data->has_died = 1;
 				print_state("has died", RED, &data->philo[i]);
+				data->has_died = 1;
 				return ;
 			}
 			i++;
 		}
-		meals_monitor(data);
+		// meals_monitor(data);
 		i = 0;
 	}
 }

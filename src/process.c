@@ -2,11 +2,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void*	take_forks(void *arg)
+static void	free_forks(t_philo *philo)
 {
-	t_philo	*philo;
+	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
+	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
+}
 
-	philo = arg;
+static void	take_forks(t_philo *philo)
+{
 	print_state("is thinking", PURPLE, philo);
 	if (philo->lfork < philo->rfork)
 	{
@@ -22,33 +25,27 @@ void*	take_forks(void *arg)
 		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
 		print_state("has taken left fork", BLUE, philo);
 	}
-	return (0);
+	if (philo->data->has_died || philo->data->done_eating)
+		free_forks(philo);
 }
 
-void*	eating(void *arg)
+static void	eating(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = arg;
 	philo->time_last_meal = ft_time();
-	print_state("is eating", GREEN, philo);
 	if (philo->meals > 0)
 		philo->meals -= 1;
+	print_state("is eating", GREEN, philo);
 	usleep(philo->data->time_eat * 1000);
 	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
-	return (0);
 }
 
-void*	sleeping(void *arg)
+static void	sleeping(t_philo *philo)
 {
-	t_philo			*philo;
-	
-	philo = arg;
 	print_state("is sleeping", YELLOW, philo);
 	usleep(philo->data->time_sleep * 1000);
-	return (0);
 }
+
 
 void*	dining(void *arg)
 {

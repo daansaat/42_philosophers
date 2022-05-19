@@ -14,8 +14,11 @@ void	print_state(char *str, char *color, t_philo *philo)
 {
 	long	timestamp;
 
-	pthread_mutex_lock(&philo->data->print);
-	timestamp = ft_time() - philo->data->time_start;
-	printf("%ldms %sP%d %s\n%s", timestamp, color, philo->n + 1, str, RESET);
-	pthread_mutex_unlock(&philo->data->print);
+	if (!philo->data->has_died && !philo->data->done_eating)
+	{
+		pthread_mutex_lock(&philo->data->print);
+		timestamp = ft_time() - philo->data->time_start;
+		printf("%ldms %sP%d %s\n%s", timestamp, color, philo->n + 1, str, RESET);
+		pthread_mutex_unlock(&philo->data->print);
+	}
 }

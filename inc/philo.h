@@ -41,11 +41,9 @@ void	init_mutex(t_data *data);
 void	init_threads(t_data *data);
 
 void*	dining(void *arg);
-void*	take_forks(void *arg);
-void*	eating(void *arg);
-void*	sleeping(void *arg);
 
 void	death_monitor(t_data *data);
+void*	meals_monitor(void *arg);
 void	print_state(char *str, char *color, t_philo *philo);
 long	ft_time(void);
 

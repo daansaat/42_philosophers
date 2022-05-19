@@ -46,6 +46,7 @@ void	init_mutex(t_data *data)
 void	init_threads(t_data *data)
 {
 	pthread_t		*threads;
+	pthread_t		monitor;
 	int				i;
 	
 	threads = malloc(sizeof(pthread_t) * data->p);
@@ -57,6 +58,7 @@ void	init_threads(t_data *data)
 		i++;
 	}
 	i = 0;
+	pthread_create(&monitor, NULL, &meals_monitor, (void*)data);
 	death_monitor(data);
 	while (i < data->p)
 	{
@@ -64,4 +66,5 @@ void	init_threads(t_data *data)
 			return ;
 		i++;
 	}
+	pthread_join(monitor, NULL);
 }
