@@ -46,6 +46,6 @@ void	death_monitor(t_data *data);
 void*	meals_monitor(void *arg);
 void	print_state(char *str, char *color, t_philo *philo);
 long	ft_time(void);
-
+int		ft_atoi(const char *str);
 
 #endif

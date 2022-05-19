@@ -9,26 +9,20 @@ SRCS_LIST = \
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS = $(SRCS:.c=.o)
 FLAGS = -Wall -Werror -Wextra -pthread -g
-INC = -I ./inc -I ./libft
-LIB = -L ./libft -l ft
+INC = -I ./inc
 
 all: $(NAME)
 
-$(NAME): libft/libft.a $(OBJS)
+$(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(INC) $(LIB) $(SRCS) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(INC) $< -o $@
 
-libft/libft.a: 
-	make -C libft
-
 clean:
 	rm -f $(OBJS)
-	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f libft/libft.a
 
 re: fclean all

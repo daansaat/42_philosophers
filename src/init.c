@@ -1,6 +1,6 @@
 #include "philo.h"
-#include "libft.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void	init_struct(char **argv, t_data *data)
 {
