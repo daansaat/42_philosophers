@@ -32,8 +32,10 @@ static void	take_forks(t_philo *philo)
 static void	eating(t_philo *philo)
 {
 	philo->time_last_meal = ft_time();
+	pthread_mutex_lock(&philo->data->print);
 	if (philo->meals > 0)
 		philo->meals -= 1;
+	pthread_mutex_unlock(&philo->data->print);
 	print_state("is eating", GREEN, philo);
 	usleep(philo->data->time_eat * 1000);
 	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);

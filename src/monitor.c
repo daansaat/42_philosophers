@@ -16,9 +16,19 @@ void*	meals_monitor(void *arg)
 		{
 			i++;
 			if (i == data->p)
+			{
 				data->done_eating = 1;
+				// pthread_mutex_unlock(&data->print);
+				break ;
+				printf("done\n");
+			}
 		}
 		pthread_mutex_unlock(&data->print);
+		if (data->done_eating == 1)
+		{
+			printf("here ok\n");
+			return (0);
+		}
 		i = 0;
 	}
 	return (0);
