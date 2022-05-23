@@ -5,10 +5,11 @@
 int	init_struct(char **argv, t_data *data)
 {
 	data->p = ft_atoi(argv[1]);
+	data->threads = malloc(sizeof(pthread_t) * data->p);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
 	data->philo = malloc(sizeof(t_philo) * data->p);
-	if (!data->forks || !data->philo)
-		return (0);
+	if (!data->threads || !data->forks || !data->philo)
+		return (1);
 	data->time_start = ft_time();
 	data->has_died = 0;
 	data->done_eating = 0;
@@ -37,47 +38,45 @@ void	init_philo(char **argv, t_data *data)
 	}
 }
 
-int	init_mutex(t_data *data)
+void	init_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->p)
 	{
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (1);
+		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-	if (pthread_mutex_init(&data->print, NULL) != 0)
-		return (1);
-	if (pthread_mutex_init(&data->meals_monitor, NULL) != 0)
-		return (1);
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->meals_monitor, NULL);
 }	
 
 int	init_threads(t_data *data)
 {
-	pthread_t		*threads;
 	int				i;
 	
-	threads = malloc(sizeof(pthread_t) * data->p);
-	if (!threads)
-		return (0);
 	i = 0;
 	while (i < data->p)
 	{
-		if (pthread_create(&threads[i], NULL, &dining, \
+		if (pthread_create(&data->threads[i], NULL, &dining, \
 		(void*)&data->philo[i]) != 0)
-			return (0);
+		{
+			printf("Failed to create thread");
+			return (1);
+		}
 		i++;
 	}
 	death_monitor(data);
 	i = 0;
 	while (i < data->p)
 	{
-		if (pthread_join(threads[i], NULL) != 0)
-			return (0);
+		if (pthread_join(data->threads[i], NULL) != 0)
+		{
+			printf("Failed to join thread");
+			return (1);
+		}
 		i++;
 	}
-	free(threads);
 	return (0);
 }

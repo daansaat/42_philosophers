@@ -22,12 +22,12 @@ int	main(int argc, char **argv)
 	t_data			data;
 
 	(void)argc;
-	init_struct(argv, &data);
-	if (!data.forks || !data.philo)
+	if (init_struct(argv, &data))
 		return (0);
 	init_philo(argv, &data);
 	init_mutex(&data);
-	init_threads(&data);
+	if (init_threads(&data))
+		return (0);
 	// free_and_destroy(&data);
 	return (0);
 }

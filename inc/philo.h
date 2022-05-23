@@ -30,6 +30,7 @@ typedef struct s_data
 	long			time_die;
 	long			time_eat;
 	long			time_sleep;
+	pthread_t		*threads;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t print;
 	pthread_mutex_t	meals_monitor;
@@ -40,7 +41,7 @@ typedef struct s_data
 int		init_struct(char **argv, t_data *data);
 void	init_philo(char **argv, t_data *data);
 int		init_threads(t_data *data);
-int		init_mutex(t_data *data);
+void	init_mutex(t_data *data);
 
 void*	dining(void *arg);
 void	death_monitor(t_data *data);
