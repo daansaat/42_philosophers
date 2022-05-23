@@ -23,14 +23,16 @@ void	meals_monitor(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->print);
 }
 
-void	death_monitor(t_data *data)
+void*	death_monitor(void *arg)
 {
-	int		i;
+	t_data	*data;
 	long	time;
+	int		i;
 
-	i = 0;
+	data = (t_data *)arg;
 	while (!data->done_eating)
 	{
+		i = 0;
 		while (i < data->p)
 		{
 			time = ft_time();
@@ -44,10 +46,41 @@ void	death_monitor(t_data *data)
 					data->has_died = 1;
 				}
 				pthread_mutex_unlock(&data->print);
-				return ;
+				return (0);
 			}
 			i++;
 		}
-		i = 0;
 	}
+	return (0);
 }
+
+// void*	death_monitor(void *arg)
+// {
+// 	t_data	*data;
+// 	long	time;
+// 	int		i;
+
+// 	data = (t_data *)arg;
+// 	while (!data->done_eating)
+// 	{
+// 		i = 0;
+// 		while (i < data->p)
+// 		{
+// 			time = ft_time();
+// 			if (time - data->philo[i].time_last_meal > data->time_die)
+// 			{
+// 				pthread_mutex_lock(&data->print);
+// 				if (!data->done_eating && !data->has_died)
+// 				{
+// 					printf("%ldms %sP%d has died\n%s", ft_time() - \
+// 					data->time_start, RED, data->philo[i].n + 1, RESET);
+// 					data->has_died = 1;
+// 				}
+// 				pthread_mutex_unlock(&data->print);
+// 				return (0);
+// 			}
+// 			i++;
+// 		}
+// 	}
+// 	return (0);
+// }

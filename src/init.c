@@ -1,25 +1,9 @@
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-int	init_struct(char **argv, t_data *data)
-{
-	data->p = ft_atoi(argv[1]);
-	data->threads = malloc(sizeof(pthread_t) * data->p);
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
-	data->philo = malloc(sizeof(t_philo) * data->p);
-	if (!data->threads || !data->forks || !data->philo)
-		return (1);
-	data->time_start = ft_time();
-	data->has_died = 0;
-	data->done_eating = 0;
-	data->time_die = ft_atoi(argv[2]);
-	data->time_eat = ft_atoi(argv[3]);
-	data->time_sleep = ft_atoi(argv[4]);
-	return (0);
-}
-
-void	init_philo(char **argv, t_data *data)
+static void	init_philo(char **argv, t_data *data)
 {
 	int	i;
 
@@ -38,6 +22,24 @@ void	init_philo(char **argv, t_data *data)
 	}
 }
 
+int	init_struct(char **argv, t_data *data)
+{
+	data->p = ft_atoi(argv[1]);
+	data->threads = malloc(sizeof(pthread_t) * data->p);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
+	data->philo = malloc(sizeof(t_philo) * data->p);
+	if (!data->threads || !data->monitor || !data->forks || !data->philo)
+		return (1);
+	data->time_start = ft_time();
+	data->has_died = 0;
+	data->done_eating = 0;
+	data->time_die = ft_atoi(argv[2]);
+	data->time_eat = ft_atoi(argv[3]);
+	data->time_sleep = ft_atoi(argv[4]);
+	init_philo(argv, data);
+	return (0);
+}
+
 void	init_mutex(t_data *data)
 {
 	int	i;
@@ -52,9 +54,25 @@ void	init_mutex(t_data *data)
 	pthread_mutex_init(&data->meals_monitor, NULL);
 }	
 
+int	init_monitor(t_data *data)
+{
+	if (pthread_create(&data->monitor, NULL, &death_monitor, \
+	(void*)data) != 0)
+	{
+		printf("Failed to create monitor thread\n");
+		return (1);
+	}
+	// if (pthread_detach(data->monitor) != 0)
+	// {
+	// 	printf("Failed to detach monitor thread\n");
+	// 	return (1);
+	// }
+	return (0);
+}
+
 int	init_threads(t_data *data)
 {
-	int				i;
+	int	i;
 	
 	i = 0;
 	while (i < data->p)
@@ -62,18 +80,17 @@ int	init_threads(t_data *data)
 		if (pthread_create(&data->threads[i], NULL, &dining, \
 		(void*)&data->philo[i]) != 0)
 		{
-			printf("Failed to create thread");
+			printf("Failed to create thread P%d\n", i);
 			return (1);
 		}
 		i++;
 	}
-	death_monitor(data);
 	i = 0;
 	while (i < data->p)
 	{
 		if (pthread_join(data->threads[i], NULL) != 0)
 		{
-			printf("Failed to join thread");
+			printf("Failed to join thread P%d\n", i);
 			return (1);
 		}
 		i++;
