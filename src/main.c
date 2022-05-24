@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (ft_input_help());
-	if (ft_is_digit(argv))
+	if (!ft_is_digit(argv))
 		return (ft_input_help());
 	if (ft_atoi(argv[1]) < 2 || ft_atoi(argv[1]) > 2000)
 		return (ft_input_help());
