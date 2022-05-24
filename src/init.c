@@ -1,7 +1,6 @@
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 static void	init_philo(char **argv, t_data *data)
 {
@@ -40,18 +39,31 @@ int	init_struct(char **argv, t_data *data)
 	return (0);
 }
 
-void	init_mutex(t_data *data)
+int	init_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->p)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
+			printf("Failed to initialize fork mutex");
+			return (1);
+		}
 		i++;
 	}
-	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->meals_monitor, NULL);
+	if (pthread_mutex_init(&data->print, NULL) != 0)
+	{
+		printf("Failed to initialize print mutex");
+		return (1);
+	}
+	if (pthread_mutex_init(&data->meals_monitor, NULL) != 0)
+	{
+		printf("Failed to initialize meals_monitor mutex");
+		return (1);
+	}
+	return (0);
 }	
 
 int	init_monitor(t_data *data)
@@ -62,11 +74,11 @@ int	init_monitor(t_data *data)
 		printf("Failed to create monitor thread\n");
 		return (1);
 	}
-	// if (pthread_detach(data->monitor) != 0)
-	// {
-	// 	printf("Failed to detach monitor thread\n");
-	// 	return (1);
-	// }
+	if (pthread_detach(data->monitor) != 0)
+	{
+		printf("Failed to detach monitor thread\n");
+		return (1);
+	}
 	return (0);
 }
 

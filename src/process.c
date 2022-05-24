@@ -1,5 +1,4 @@
 #include "philo.h"
-#include <stdio.h>
 #include <unistd.h>
 
 static void	sleeping(t_philo *philo)

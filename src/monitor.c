@@ -1,7 +1,5 @@
 #include "philo.h"
-#include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
 
 void	meals_monitor(t_philo *philo)
 {

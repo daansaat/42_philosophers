@@ -7,7 +7,8 @@
 # define YELLOW "\033[1;33m"
 # define PURPLE "\033[0;35m"
 # define BLUE "\033[0;34m"
- #define RESET "\033[0m"
+# define TEAL "\033[0;36m"
+# define RESET "\033[0m"
 
 struct s_data;
 
@@ -42,13 +43,15 @@ typedef struct s_data
 int		init_struct(char **argv, t_data *data);
 int		init_monitor(t_data *data);
 int		init_threads(t_data *data);
-void	init_mutex(t_data *data);
+int		init_mutex(t_data *data);
 
 void*	dining(void *arg);
 void*	death_monitor(void *arg);
 void	meals_monitor(t_philo *philo);
 
 int		ft_atoi(const char *str);
+int		ft_is_digit(char **argv);
+int		ft_input_help(void);
 long	ft_time(void);
 void	print_state(char *str, char *color, t_philo *philo);
 
