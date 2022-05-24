@@ -33,7 +33,8 @@ static void	free_forks(t_philo *philo)
 
 static void	take_forks(t_philo *philo)
 {
-	if (philo->lfork < philo->rfork)
+	// if (philo->lfork < philo->rfork)
+	if (philo->n % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
 		print_state("has taken left fork", BLUE, philo);
