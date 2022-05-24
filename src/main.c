@@ -12,12 +12,16 @@ static void	free_and_destroy(t_data *data)
 		i++;
 	}
 	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->meals_monitor);
+	free(data->threads);
 	free(data->forks);
 	free(data->philo);
 }
 
-static int	parse_input(int argc, char **argv)
+int	main(int argc, char **argv)
 {
+	t_data			data;
+
 	if (argc < 5 || argc > 6)
 		return (ft_input_help());
 	if (ft_is_digit(argv))
@@ -27,15 +31,6 @@ static int	parse_input(int argc, char **argv)
 	if (argv[5])
 		if (ft_atoi(argv[5]) <= 0)
 			return (ft_input_help());
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_data			data;
-
-	if (parse_input(argc, argv))
-		return (1);
 	if (init_struct(argv, &data))
 		return (1);
 	if (init_mutex(&data))

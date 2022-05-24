@@ -64,5 +64,5 @@ void*	dining(void *arg)
 		if (!philo->data->has_died && !philo->data->done_eating)
 			sleeping(philo);
 	}
-	return (NULL);
+	return (0);
 }
