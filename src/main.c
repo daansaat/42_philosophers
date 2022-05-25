@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 		return (ft_input_help());
 	if (argv[5])
 		if (ft_atoi(argv[5]) <= 0)
-			return (ft_input_help());
+			return (0);
 	if (init_struct(argv, &data))
 		return (1);
 	if (init_mutex(&data))
