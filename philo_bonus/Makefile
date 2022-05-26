@@ -3,7 +3,9 @@ SRCS_DIR_BONUS = src_bonus/
 SRCS_LIST_BONUS = \
 	main_bonus.c \
 	utils_bonus.c \
-	# init.c \
+	init_bonus.c \
+	child_bonus.c \
+	parent_bonus.c \
 	# process.c \
 	# monitor.c
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS), $(SRCS_LIST_BONUS))
