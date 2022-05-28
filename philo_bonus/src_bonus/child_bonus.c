@@ -15,34 +15,36 @@ static void	sleeping(t_data *data)
 static void	eating(t_data *data)
 {
 	data->time_last_meal = ft_time();
-    sem_wait(data->done_eating_id);
 	if (data->meals > 0)
 		data->meals -= 1;
 	if (data->meals == 0 && !data->done_eating)
 	{
 		data->done_eating = 1;
-        print_state("is eating", GREEN, data);
+		sem_wait(data->print_id);
+		printf("%ldms %sP%d is eating final\n%s", ft_time() - \
+		data->time_start, GREEN, data->n + 1, RESET);
 		sem_post(data->meals_id);
+		sem_wait(data->done_eating_id);
+		sem_post(data->print_id);
 	}
 	else
     	print_state("is eating", GREEN, data);
-    sem_post(data->done_eating_id);
 	usleep(data->time_eat);
 }
 
 static void	take_forks(t_data *data)
 {
     if (sem_wait(data->fork_id) < 0)
-        ft_error("sem_wait() failed");
+        ft_error(data, "sem_wait() failed");
 	print_state("has taken a fork", BLUE, data);
     if (sem_wait(data->fork_id) < 0)
-        ft_error("sem_wait() failed\n");
+        ft_error(data, "sem_wait() failed\n");
 	print_state("has taken a fork", BLUE, data);
 	eating(data);
     if (sem_post(data->fork_id) < 0)
-        ft_error("sem_post() failed\n");
+        ft_error(data, "sem_post() failed\n");
     if (sem_post(data->fork_id) < 0)
-        ft_error("sem_post() failed\n");
+        ft_error(data, "sem_post() failed\n");
 }
 
 static void*	death_monitor(void *arg)
@@ -53,21 +55,21 @@ static void*	death_monitor(void *arg)
 	data = (t_data *)arg;
 	while (1)
 	{
+		sem_wait(data->print_id);
 		time = ft_time();
 		if (data->time_last_meal - data->time_start > data->time_die)
 		{
-			sem_wait(data->print_id);
-			printf("%ldms %sP%d has died\n%s", ft_time() - \
+			printf("%ldms %sP%d has died\n%s", time - \
 			data->time_start, RED, data->n + 1, RESET);
 			sem_post(data->death_id);
-			// sem_post(data->print_id);
 			break ;
 		}
+		sem_post(data->print_id);
 	}
 	return (0);
 }
 
-void    ft_child(t_data *data)
+void    ft_child_process(t_data *data)
 {
     pthread_t	death;
 

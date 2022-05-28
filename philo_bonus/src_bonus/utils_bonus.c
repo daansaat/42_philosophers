@@ -4,10 +4,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-void ft_error(char *str)
+void	ft_error(t_data *data, char *str)
 {
     printf("%s\n", str);
-    exit(EXIT_FAILURE);
+	sem_post(data->stop_id);
 }
 
 long	ft_time(void)
@@ -23,12 +23,11 @@ void	print_state(char *str, char *color, t_data *data)
 	long	time_ms;
 
 	if (sem_wait(data->print_id) < 0)
-	    ft_error("sem_wait() failed\n");
+	    ft_error(data, "sem_wait() failed\n");
 	time_ms = ft_time() - data->time_start;
 	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, RESET);
 	if (sem_post(data->print_id) < 0)
-		ft_error("sem_wait() failed\n");
-
+		ft_error(data, "sem_wait() failed\n");
 }
 
 int	ft_atoi(const char *str)

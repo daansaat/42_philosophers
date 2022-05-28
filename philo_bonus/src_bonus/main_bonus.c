@@ -8,22 +8,33 @@
 
 // static void clean_up(t_data *data)
 // {
-//     printf("%s", RESET);
-//     sem_unlink("/fork");
-//     sem_unlink("/print");
-//     sem_unlink("/meals");
-//     sem_unlink("/done_eating");
-//     sem_unlink("/death");
+//     sem_post(data->fork_id);
+//     sem_post(data->print_id);
+//     sem_post(data->meals_id);
+//     sem_post(data->done_eating_id);
+//     sem_post(data->death_id);
+//     sem_post(data->stop_id);
 //     sem_close(data->fork_id);
 //     sem_close(data->print_id);
 //     sem_close(data->meals_id);
-//     printf("SUCCES!!!\n");
 //     sem_close(data->done_eating_id);
 //     sem_close(data->death_id);
-//     free(data->pid_child);
+//     sem_close(data->stop_id);
+//     free(data.pid_child);
 // }
 
+void kill_children(t_data *data)
+{
+    int i;
 
+    i = 0;
+    while (data->pid_child[i])
+    {
+        if (kill(data->pid_child[i], SIGKILL) != 0)
+            ft_error(data, "kill() failed");
+        i++;
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -33,11 +44,8 @@ int main(int argc, char **argv)
     init_struct(&data, argv);
     init_semaphore(&data);
     init_processes(&data);
-    while (!data.done_eating && !data.has_died)
-        usleep(1);
-    printf("%s SUCCESS!!\n", RESET);
+    kill_children(&data);
     // clean_up(&data);
-    // while(waitpid(-1, NULL, 0) > 0)
-    // system("leaks philo_bonus");
+    printf("%s", RESET);
     return (0);
 }
