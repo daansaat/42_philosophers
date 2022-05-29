@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <errno.h>
 
 void	ft_error(t_data *data, char *str)
 {
-    printf("%s\n", str);
+    printf("%s%s%s %d\n", RED, str, RESET, errno);
+	exit(EXIT_FAILURE);
 	sem_post(data->stop_id);
 }
 
@@ -56,4 +58,24 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (x * sign);
+}
+
+int	ft_is_digit(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }

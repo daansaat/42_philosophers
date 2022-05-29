@@ -8,14 +8,14 @@
 static void* meals_monitor(void *arg)
 {
     t_data  *data;
-    int     philosophers;
+    int     philo;
 
     data = (t_data *)arg;
-    philosophers = data->p;
-    while (philosophers != 0)
+    philo = data->p;
+    while (philo)
     {
         sem_wait(data->meals_id);
-        philosophers--;
+        philo--;
     }
     sem_post(data->stop_id);
     return (0);

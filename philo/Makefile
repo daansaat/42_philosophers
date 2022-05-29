@@ -8,13 +8,13 @@ SRCS_LIST = \
 	monitor.c
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_LIST))
 OBJS = $(SRCS:.c=.o)
-FLAGS = -Wall -Werror -Wextra -pthread -g
+FLAGS = -Wall -Werror -Wextra -pthread
 INC = -I ./inc
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(INC) $(LIB) $(SRCS) -o $(NAME)
+	$(CC) $(FLAGS) $(INC) $(SRCS) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(INC) $< -o $@

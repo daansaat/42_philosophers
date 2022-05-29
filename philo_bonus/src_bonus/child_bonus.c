@@ -21,7 +21,7 @@ static void	eating(t_data *data)
 	{
 		data->done_eating = 1;
 		sem_wait(data->print_id);
-		printf("%ldms %sP%d is eating final\n%s", ft_time() - \
+		printf("%s%ldms %sP%d is eating\n%s", RESET, ft_time() - \
 		data->time_start, GREEN, data->n + 1, RESET);
 		sem_post(data->meals_id);
 		sem_wait(data->done_eating_id);
@@ -57,9 +57,9 @@ static void*	death_monitor(void *arg)
 	{
 		sem_wait(data->print_id);
 		time = ft_time();
-		if (data->time_last_meal - data->time_start > data->time_die)
+		if (time - data->time_last_meal > data->time_die)
 		{
-			printf("%ldms %sP%d has died\n%s", time - \
+			printf("%s%ldms %sP%d has died\n%s", RESET, time - \
 			data->time_start, RED, data->n + 1, RESET);
 			sem_post(data->death_id);
 			break ;

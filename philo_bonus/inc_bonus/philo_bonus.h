@@ -39,6 +39,7 @@ void    ft_parent_monitor(t_data *data);
 void    ft_child_process(t_data *data);
 
 int		ft_atoi(const char *str);
+int		ft_is_digit(char **argv);
 long	ft_time(void);
 void 	ft_error(t_data *data, char *str);
 void	print_state(char *str, char *color, t_data *data);

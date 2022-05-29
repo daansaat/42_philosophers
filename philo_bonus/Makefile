@@ -5,18 +5,16 @@ SRCS_LIST_BONUS = \
 	utils_bonus.c \
 	init_bonus.c \
 	child_bonus.c \
-	parent_bonus.c \
-	# process.c \
-	# monitor.c
+	parent_bonus.c
 SRCS_BONUS = $(addprefix $(SRCS_DIR_BONUS), $(SRCS_LIST_BONUS))
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
-FLAGS = -Wall -Werror -Wextra -pthread -g
+FLAGS = -Wall -Werror -Wextra -pthread
 INC_BONUS = -I ./inc_bonus
 
 all: $(NAME)
 
 $(NAME): $(OBJS_BONUS)
-	$(CC) $(FLAGS) $(INC_BONUS) $(LIB) $(SRCS_BONUS) -o $(NAME)
+	$(CC) $(FLAGS) $(INC_BONUS) $(SRCS_BONUS) -o $(NAME)
 
 %.o: %.c
 	$(CC) -c $(INC_BONUS) $< -o $@

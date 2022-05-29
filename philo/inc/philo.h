@@ -51,7 +51,6 @@ void	meals_monitor(t_philo *philo);
 
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
-int		ft_input_help(void);
 long	ft_time(void);
 void	print_state(char *str, char *color, t_philo *philo);
 
