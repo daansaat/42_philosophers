@@ -55,10 +55,7 @@ void    init_processes(t_data *data)
 		data->n = philo;
 		data->pid_child[philo] = fork();
 		if (data->pid_child[philo] == -1)
-		{
 			ft_error(data, "fork() failed");
-			break;
-		}
 		else if (data->pid_child[philo] == 0)
 			ft_child_process(data);
 		else
