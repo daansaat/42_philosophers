@@ -5,6 +5,20 @@
 #include <signal.h>
 #include <pthread.h>
 
+static void kill_children(t_data *data)
+{
+    int i;
+
+    i = 0;
+    while (data->pid_child[i])
+    {
+        if (kill(data->pid_child[i], SIGKILL) != 0)
+            ft_error("kill() failed");
+        i++;
+    }
+    printf("%s", RESET);
+}
+
 static void* meals_monitor(void *arg)
 {
     t_data  *data;
@@ -14,10 +28,11 @@ static void* meals_monitor(void *arg)
     philo = data->p;
     while (philo)
     {
-        sem_wait(data->meals_id);
+        ft_check(sem_wait(data->meals_id));
         philo--;
     }
-    sem_post(data->stop_id);
+    kill_children(data);
+    // ft_check(sem_post(data->stop_id));
     return (0);
 }
 
@@ -26,8 +41,9 @@ static void*   death_monitor(void *arg)
     t_data  *data;
 
     data = (t_data *)arg;
-    sem_wait(data->death_id);
-    sem_post(data->stop_id);
+    ft_check(sem_wait(data->death_id));
+    kill_children(data);
+    // ft_check(sem_post(data->stop_id));
     return (0);
 }
 
@@ -37,11 +53,11 @@ void    ft_parent_monitor(t_data *data)
     pthread_t   death;
 
     if (pthread_create(&meals, NULL, &meals_monitor, (void *)data) != 0)
-        ft_error(data, "pthread_create() failed");
+        ft_error("pthread_create() failed");
     if (pthread_detach(meals) != 0)
-        ft_error(data, "pthread_detach() failed");
+        ft_error("pthread_detach() failed");
     if (pthread_create(&death, NULL, &death_monitor, (void *)data) != 0)
-        ft_error(data, "pthread_create() failed");
+        ft_error("pthread_create() failed");
     if (pthread_detach(death) != 0)
-        ft_error(data, "pthread_detach() failed");
+        ft_error("pthread_detach() failed");
 }

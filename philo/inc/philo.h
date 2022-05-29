@@ -12,7 +12,7 @@
 
 struct s_data;
 
-typedef struct s_philo
+typedef struct	s_philo
 {
 	int				n;
 	int				lfork;
@@ -20,9 +20,9 @@ typedef struct s_philo
 	int				meals;
 	long			time_last_meal;
 	struct s_data	*data;
-}					t_philo;
+}				t_philo;
 
-typedef struct s_data
+typedef struct	s_data
 {
 	int				p;
 	int				has_died;
@@ -38,7 +38,7 @@ typedef struct s_data
 	pthread_mutex_t	meals_monitor;
 	t_philo			*philo;
 
-}					t_data;
+}				t_data;
 
 int		init_struct(char **argv, t_data *data);
 int		init_monitor(t_data *data);

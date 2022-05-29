@@ -10,7 +10,7 @@
 # define TEAL "\033[0;36m"
 # define RESET "\033[0m"
 
-typedef struct s_data
+typedef struct	s_data
 {
 	int		p;
     int     n;
@@ -23,17 +23,17 @@ typedef struct s_data
 	long	time_sleep;
 	pid_t	*pid_child;
 	sem_t   *fork_id;
+	sem_t	*max_eating_id;
     sem_t   *print_id;
 	sem_t	*meals_id;
 	sem_t	*done_eating_id;
 	sem_t	*death_id;
-	sem_t	*stop_id;
-}			t_data;
+}				t_data;
 
 void    init_struct(t_data *data, char **argv);
 void    init_semaphore(t_data *data);
 void    init_processes(t_data *data);
-void	kill_children(t_data *data);
+// void	kill_children(t_data *data);
 
 void    ft_parent_monitor(t_data *data);
 void    ft_child_process(t_data *data);
@@ -41,7 +41,8 @@ void    ft_child_process(t_data *data);
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
 long	ft_time(void);
-void 	ft_error(t_data *data, char *str);
 void	print_state(char *str, char *color, t_data *data);
+void 	ft_error(char *str);
+void	ft_check(int return_value);
 
 #endif
