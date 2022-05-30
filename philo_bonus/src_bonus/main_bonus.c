@@ -8,8 +8,6 @@
 
 static void free_sem(t_data *data)
 {
-	(void)data;
-	
 	sem_unlink("/fork");
 	sem_unlink("/max_eating");
     sem_unlink("/print");
