@@ -12,11 +12,9 @@ void	meals_monitor(t_philo *philo)
 		printf("%ldms %sP%d is eating\n%s", ft_time() - \
 		philo->data->time_start, GREEN, philo->n + 1, RESET);
 		while (philo->data->philo[i].meals == 0 && i < philo->data->p)
-		{
 			i++;
-			if (i == philo->data->p)
-				philo->data->done_eating = 1;
-		}	
+		if (i == philo->data->p)
+			philo->data->done_eating = 1;
 	}
 	pthread_mutex_unlock(&philo->data->print);
 }
