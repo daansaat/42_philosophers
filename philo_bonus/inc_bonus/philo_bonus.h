@@ -33,7 +33,6 @@ typedef struct	s_data
 void    init_struct(t_data *data, char **argv);
 void    init_semaphore(t_data *data);
 void    init_processes(t_data *data);
-// void	kill_children(t_data *data);
 
 void    ft_parent_monitor(t_data *data);
 void    ft_child_process(t_data *data);

@@ -14,12 +14,13 @@ static void kill_children(t_data *data)
     {
         if (kill(data->pid_child[i], SIGKILL) != 0)
             ft_error("kill() failed");
+        data->pid_child[i] = 0;
         i++;
     }
     printf("%s", RESET);
 }
 
-static void* meals_monitor(void *arg)
+static void	*meals_monitor(void *arg)
 {
     t_data  *data;
     int     philo;
@@ -31,19 +32,19 @@ static void* meals_monitor(void *arg)
         ft_check(sem_wait(data->meals_id));
         philo--;
     }
+    sem_close(data->meals_id);
     kill_children(data);
-    // ft_check(sem_post(data->stop_id));
     return (0);
 }
 
-static void*   death_monitor(void *arg)
+static void	*death_monitor(void *arg)
 {
     t_data  *data;
 
     data = (t_data *)arg;
     ft_check(sem_wait(data->death_id));
+    sem_close(data->death_id);
     kill_children(data);
-    // ft_check(sem_post(data->stop_id));
     return (0);
 }
 

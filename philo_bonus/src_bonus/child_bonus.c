@@ -45,7 +45,7 @@ static void	take_forks(t_data *data)
 	ft_check(sem_post(data->max_eating_id));
 }
 
-static void*	death_monitor(void *arg)
+static void	*death_monitor(void *arg)
 {
 	t_data	*data;
 	long	time;

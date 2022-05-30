@@ -6,24 +6,21 @@
 #include <stdlib.h>
 #include <signal.h>
 
-// static void clean_up(t_data *data)
-// {
-//     sem_post(data->fork_id);
-//     sem_post(data->max_eating_id);
-//     sem_post(data->print_id);
-//     sem_post(data->meals_id);
-//     sem_post(data->done_eating_id);
-//     sem_post(data->death_id);
-//     sem_post(data->stop_id);
-//     sem_close(data->fork_id);
-//     sem_close(data->max_eating_id);
-//     sem_close(data->print_id);
-//     sem_close(data->meals_id);
-//     sem_close(data->done_eating_id);
-//     sem_close(data->death_id);
-//     sem_close(data->stop_id);
-//     free(data.pid_child);
-// }
+static void free_sem(t_data *data)
+{
+	(void)data;
+	
+	sem_unlink("/fork");
+	sem_unlink("/max_eating");
+    sem_unlink("/print");
+    sem_unlink("/meals");
+    sem_unlink("/done_eating");
+    sem_unlink("/death");
+    sem_close(data->fork_id);
+    sem_close(data->max_eating_id);
+    sem_close(data->print_id);
+    sem_close(data->done_eating_id);
+}
 
 static int	ft_input_help(void)
 {
@@ -58,5 +55,8 @@ int main(int argc, char **argv)
     init_semaphore(&data);
     init_processes(&data);
 	while (waitpid(0, NULL, 0) > 0)
+		usleep(1);
+	free_sem(&data);
+	free(data.pid_child);
     return (0);
 }

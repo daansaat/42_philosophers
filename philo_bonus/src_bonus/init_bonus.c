@@ -49,7 +49,6 @@ void    init_processes(t_data *data)
     int	philo;
 
 	philo = 0;
-    ft_parent_monitor(data);
 	while (philo < data->p)
 	{
 		data->n = philo;
@@ -61,4 +60,5 @@ void    init_processes(t_data *data)
 		else
 			philo++;
 	}
+    ft_parent_monitor(data);
 }
