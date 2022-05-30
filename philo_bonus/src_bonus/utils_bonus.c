@@ -8,17 +8,8 @@
 
 void	ft_error(char *str)
 {
-    printf("%s%s:%s %s\n", RED, str, RESET, strerror(errno));
+    printf("%s%s%s\n", RED, str, RESET);
 	exit(EXIT_FAILURE);
-}
-
-void	ft_check(int return_value)
-{
-	if (return_value != 0)
-	{
-		printf("sem_wait() || sem_post() failed: %s\n", strerror(errno));
-		exit(EXIT_FAILURE);
-	}
 }
 
 long	ft_time(void)

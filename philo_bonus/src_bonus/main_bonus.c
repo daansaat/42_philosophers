@@ -6,6 +6,15 @@
 #include <stdlib.h>
 #include <signal.h>
 
+void	ft_check(int return_value)
+{
+	if (return_value != 0)
+	{
+		printf("sem_wait() || sem_post() || sem_close() failed\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 static void free_sem(t_data *data)
 {
 	sem_unlink("/fork");
@@ -14,10 +23,10 @@ static void free_sem(t_data *data)
     sem_unlink("/meals");
     sem_unlink("/done_eating");
     sem_unlink("/death");
-    sem_close(data->fork_id);
-    sem_close(data->can_sit_id);
-    sem_close(data->print_id);
-    sem_close(data->done_eating_id);
+    ft_check(sem_close(data->fork_id));
+    ft_check(sem_close(data->can_sit_id));
+    ft_check(sem_close(data->print_id));
+    ft_check(sem_close(data->done_eating_id));
 }
 
 static int	ft_input_help(void)
@@ -56,6 +65,5 @@ int main(int argc, char **argv)
 		usleep(1);
 	free_sem(&data);
 	free(data.pid_child);
-	// system("leaks philo_bonus");
     return (0);
 }

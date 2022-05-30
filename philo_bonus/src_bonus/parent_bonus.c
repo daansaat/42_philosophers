@@ -32,7 +32,7 @@ static void	*meals_monitor(void *arg)
         ft_check(sem_wait(data->meals_id));
         philo--;
     }
-    sem_close(data->meals_id);
+    ft_check(sem_close(data->meals_id));
     kill_children(data);
     return (0);
 }
@@ -43,7 +43,7 @@ static void	*death_monitor(void *arg)
 
     data = (t_data *)arg;
     ft_check(sem_wait(data->death_id));
-    sem_close(data->death_id);
+    ft_check(sem_close(data->death_id));
     kill_children(data);
     return (0);
 }
