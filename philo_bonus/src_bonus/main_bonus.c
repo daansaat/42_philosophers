@@ -1,10 +1,8 @@
 #include "philo_bonus.h"
+#include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <semaphore.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
 
 void	ft_check(int return_value)
 {

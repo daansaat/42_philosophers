@@ -1,10 +1,7 @@
 #include "philo_bonus.h"
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <semaphore.h>
+#include <unistd.h>
 #include <string.h>
-#include <pthread.h>
 
 void    init_struct(t_data *data, char **argv)
 {

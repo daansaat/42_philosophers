@@ -1,7 +1,5 @@
 #include "philo_bonus.h"
-#include <semaphore.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <signal.h>
 #include <pthread.h>
 

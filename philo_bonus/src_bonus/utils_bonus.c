@@ -1,10 +1,7 @@
 #include "philo_bonus.h"
-#include <sys/time.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <errno.h>
-#include <string.h>
+#include <stdio.h>
+#include <sys/time.h>
 
 void	ft_error(char *str)
 {
