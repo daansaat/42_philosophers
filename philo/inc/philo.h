@@ -49,6 +49,7 @@ void*	dining(void *arg);
 void*	death_monitor(void *arg);
 void	meals_monitor(t_philo *philo);
 
+int		ft_error(char *str);
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
 long	ft_time(void);

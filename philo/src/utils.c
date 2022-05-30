@@ -2,6 +2,12 @@
 #include <sys/time.h>
 #include <stdio.h>
 
+int	ft_error(char *str)
+{
+	printf("%s\n", str);
+	return (1);
+}
+
 long	ft_time(void)
 {
 	struct timeval	time;

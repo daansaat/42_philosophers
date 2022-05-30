@@ -47,22 +47,13 @@ int	init_mutex(t_data *data)
 	while (i < data->p)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-		{
-			printf("Failed to initialize fork mutex");
-			return (1);
-		}
+			return (ft_error("pthread_mutex_init() failed"));
 		i++;
 	}
 	if (pthread_mutex_init(&data->print, NULL) != 0)
-	{
-		printf("Failed to initialize print mutex");
-		return (1);
-	}
+		return (ft_error("pthread_mutex_init failed() failed"));
 	if (pthread_mutex_init(&data->meals_monitor, NULL) != 0)
-	{
-		printf("Failed to initialize meals_monitor mutex");
-		return (1);
-	}
+		return (ft_error("pthread_mutex_init failed() failed"));
 	return (0);
 }	
 
@@ -70,15 +61,9 @@ int	init_monitor(t_data *data)
 {
 	if (pthread_create(&data->monitor, NULL, &death_monitor, \
 	(void*)data) != 0)
-	{
-		printf("Failed to create monitor thread\n");
-		return (1);
-	}
+		return (ft_error("pthead_create() failed"));
 	if (pthread_detach(data->monitor) != 0)
-	{
-		printf("Failed to detach monitor thread\n");
-		return (1);
-	}
+		return (ft_error("pthread_detach() failed"));
 	return (0);
 }
 
@@ -91,20 +76,14 @@ int	init_threads(t_data *data)
 	{
 		if (pthread_create(&data->threads[i], NULL, &dining, \
 		(void*)&data->philo[i]) != 0)
-		{
-			printf("Failed to create thread P%d\n", i);
-			return (1);
-		}
+			return (ft_error("pthead_create() failed"));
 		i++;
 	}
 	i = 0;
 	while (i < data->p)
 	{
 		if (pthread_join(data->threads[i], NULL) != 0)
-		{
-			printf("Failed to join thread P%d\n", i);
-			return (1);
-		}
+			return (ft_error("pthread_join() failed"));
 		i++;
 	}
 	return (0);

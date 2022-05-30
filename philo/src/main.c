@@ -1,5 +1,6 @@
 #include "philo.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static int	ft_input_help(void)
 {
