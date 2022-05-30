@@ -52,10 +52,9 @@ void    init_processes(t_data *data)
 		data->pid_child[philo] = fork();
 		if (data->pid_child[philo] == -1)
 			ft_error("fork() failed");
-		else if (data->pid_child[philo] == 0)
+		if (data->pid_child[philo] == 0)
 			ft_child_process(data);
-		else
-			philo++;
+		philo++;
 	}
     ft_parent_monitor(data);
 }
