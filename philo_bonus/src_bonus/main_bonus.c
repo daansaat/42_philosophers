@@ -9,13 +9,13 @@
 static void free_sem(t_data *data)
 {
 	sem_unlink("/fork");
-	sem_unlink("/max_eating");
+	sem_unlink("/can_sit");
     sem_unlink("/print");
     sem_unlink("/meals");
     sem_unlink("/done_eating");
     sem_unlink("/death");
     sem_close(data->fork_id);
-    sem_close(data->max_eating_id);
+    sem_close(data->can_sit_id);
     sem_close(data->print_id);
     sem_close(data->done_eating_id);
 }
@@ -56,5 +56,6 @@ int main(int argc, char **argv)
 		usleep(1);
 	free_sem(&data);
 	free(data.pid_child);
+	// system("leaks philo_bonus");
     return (0);
 }

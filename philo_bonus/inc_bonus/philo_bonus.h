@@ -23,7 +23,7 @@ typedef struct	s_data
 	long	time_sleep;
 	pid_t	*pid_child;
 	sem_t   *fork_id;
-	sem_t	*max_eating_id;
+	sem_t	*can_sit_id;
     sem_t   *print_id;
 	sem_t	*meals_id;
 	sem_t	*done_eating_id;

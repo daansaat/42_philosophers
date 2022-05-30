@@ -34,15 +34,15 @@ static void	eating(t_data *data)
 
 static void	take_forks(t_data *data)
 {
-    ft_check(sem_wait(data->max_eating_id));
+    ft_check(sem_wait(data->can_sit_id));
 	ft_check(sem_wait(data->fork_id));
 	print_state("has taken a fork", BLUE, data);
     ft_check(sem_wait(data->fork_id));
 	print_state("has taken a fork", BLUE, data);
+	ft_check(sem_post(data->can_sit_id));
 	eating(data);
     ft_check(sem_post(data->fork_id));
     ft_check(sem_post(data->fork_id));
-	ft_check(sem_post(data->max_eating_id));
 }
 
 static void	*death_monitor(void *arg)
