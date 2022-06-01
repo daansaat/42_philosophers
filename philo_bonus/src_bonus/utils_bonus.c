@@ -64,6 +64,8 @@ int	ft_is_digit(char **argv)
 	while (argv[i])
 	{
 		j = 0;
+		if (argv[i][j] == '+')
+			j++;
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')
