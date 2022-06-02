@@ -13,7 +13,7 @@ static int	ft_input_help(void)
 	printf("|         [2][%sTime to die%s][milliseconds]             |\n", RED, RESET);
 	printf("|         [3][%sTime to eat%s][milliseconds]             |\n", GREEN, RESET);
 	printf("|         [4][%sTime to sleep%s][milliseconds]           |\n", YELLOW, RESET);
-	printf("|      (( [5][%sNumber of meals%s][ > 1] ))              |\n", TEAL, RESET);
+	printf("|      (( [5][%sNumber of meals%s][ > 0] ))              |\n", TEAL, RESET);
 	printf("|____________________________________________________|\n");
 	printf("\n");
 	return (1);

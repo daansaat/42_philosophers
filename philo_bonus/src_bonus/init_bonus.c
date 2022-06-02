@@ -17,7 +17,7 @@ void    init_struct(t_data *data, char **argv)
 	data->time_sleep = ft_atoi(argv[4]) * 1000;
 	data->pid_child = malloc(sizeof(pid_t) * (data->p + 1));
 	if (!data->pid_child)
-		ft_error("malloc() failed");
+		ft_error(data, "malloc() failed");
 	memset(data->pid_child, 0, sizeof(pid_t) * (data->p + 1));
 }
 
@@ -38,7 +38,7 @@ void    init_semaphore(t_data *data)
     if (data->fork_id == SEM_FAILED || data->print_id == SEM_FAILED \
 	|| data->meals_id == SEM_FAILED || data->done_eating_id == SEM_FAILED \
 	|| data->death_id == SEM_FAILED || data->can_sit_id == SEM_FAILED)
-		ft_error("sem_open() failed");
+		ft_error(data, "sem_open() failed");
 }
 
 void    init_processes(t_data *data)
@@ -51,7 +51,7 @@ void    init_processes(t_data *data)
 		data->n = philo;
 		data->pid_child[philo] = fork();
 		if (data->pid_child[philo] == -1)
-			ft_error("fork() failed");
+			ft_error(data, "fork() failed");
 		if (data->pid_child[philo] == 0)
 			ft_child_process(data);
 		philo++;

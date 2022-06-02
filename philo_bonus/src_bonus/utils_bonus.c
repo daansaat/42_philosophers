@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-void	ft_error(char *str)
+void	ft_error(t_data *data, char *str)
 {
-    printf("%s%s%s\n", RED, str, RESET);
+	printf("%s%s%s\n", RED, str, RESET);
+	clean_up(data);
 	exit(EXIT_FAILURE);
 }
 

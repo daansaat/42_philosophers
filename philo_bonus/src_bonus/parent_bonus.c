@@ -4,15 +4,14 @@
 #include <signal.h>
 #include <pthread.h>
 
-static void kill_children(t_data *data)
+void kill_children(t_data *data)
 {
     int i;
 
     i = 0;
-    while (data->pid_child[i])
+    while (data->pid_child && data->pid_child[i])
     {
         kill(data->pid_child[i], SIGKILL);
-        data->pid_child[i] = 0;
         i++;
     }
     printf("%s", RESET);
@@ -52,9 +51,9 @@ void    ft_parent_monitor(t_data *data)
     pthread_t   death;
 
     if (pthread_create(&meals, NULL, &meals_monitor, (void *)data) != 0)
-        ft_error("pthread_create() failed");
+        ft_error(data, "pthread_create() failed");
     if (pthread_create(&death, NULL, &death_monitor, (void *)data) != 0)
-        ft_error("pthread_create() failed");
+        ft_error(data, "pthread_create() failed");
     pthread_detach(meals);
     pthread_detach(death);
 }

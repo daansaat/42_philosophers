@@ -70,7 +70,7 @@ void    ft_child_process(t_data *data)
     pthread_t	death;
 
 	if (pthread_create(&death, NULL, &death_monitor, (void*)data) != 0)
-		ft_error("pthread_create() failed");
+		ft_error(data, "pthread_create() failed");
 	pthread_detach(death);
     while (1)
     {
