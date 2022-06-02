@@ -71,8 +71,7 @@ void    ft_child_process(t_data *data)
 
 	if (pthread_create(&death, NULL, &death_monitor, (void*)data) != 0)
 		ft_error("pthread_create() failed");
-	if (pthread_detach(death) != 0)
-		ft_error("pthread_detach() failed");
+	pthread_detach(death);
     while (1)
     {
         take_forks(data);

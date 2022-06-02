@@ -11,8 +11,7 @@ static void kill_children(t_data *data)
     i = 0;
     while (data->pid_child[i])
     {
-        if (kill(data->pid_child[i], SIGKILL) != 0)
-            write(2, "kill() failed\n", 14);
+        kill(data->pid_child[i], SIGKILL);
         data->pid_child[i] = 0;
         i++;
     }
@@ -54,10 +53,8 @@ void    ft_parent_monitor(t_data *data)
 
     if (pthread_create(&meals, NULL, &meals_monitor, (void *)data) != 0)
         ft_error("pthread_create() failed");
-    if (pthread_detach(meals) != 0)
-        ft_error("pthread_detach() failed");
     if (pthread_create(&death, NULL, &death_monitor, (void *)data) != 0)
         ft_error("pthread_create() failed");
-    if (pthread_detach(death) != 0)
-        ft_error("pthread_detach() failed");
+    pthread_detach(meals);
+    pthread_detach(death);
 }
