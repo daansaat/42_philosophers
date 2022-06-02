@@ -21,10 +21,10 @@ void	print_state(char *str, char *color, t_data *data)
 {
 	long	time_ms;
 
-	ft_check(sem_wait(data->print_id));
+	sem_wait(data->print_id);
 	time_ms = ft_time() - data->time_start;
 	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, RESET);
-	ft_check(sem_post(data->print_id));
+	sem_post(data->print_id);
 }
 
 int	ft_atoi(const char *str)

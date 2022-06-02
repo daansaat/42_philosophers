@@ -1,5 +1,6 @@
 #include "philo_bonus.h"
 #include <stdio.h>
+#include <unistd.h>
 #include <signal.h>
 #include <pthread.h>
 
@@ -11,7 +12,7 @@ static void kill_children(t_data *data)
     while (data->pid_child[i])
     {
         if (kill(data->pid_child[i], SIGKILL) != 0)
-            ft_error("kill() failed");
+            write(2, "kill() failed\n", 14);
         data->pid_child[i] = 0;
         i++;
     }
@@ -27,10 +28,10 @@ static void	*meals_monitor(void *arg)
     philo = data->p;
     while (philo)
     {
-        ft_check(sem_wait(data->meals_id));
+        sem_wait(data->meals_id);
         philo--;
     }
-    ft_check(sem_close(data->meals_id));
+    sem_close(data->meals_id);
     kill_children(data);
     return (0);
 }
@@ -40,8 +41,8 @@ static void	*death_monitor(void *arg)
     t_data  *data;
 
     data = (t_data *)arg;
-    ft_check(sem_wait(data->death_id));
-    ft_check(sem_close(data->death_id));
+    sem_wait(data->death_id);
+    sem_close(data->death_id);
     kill_children(data);
     return (0);
 }

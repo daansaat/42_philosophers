@@ -42,6 +42,5 @@ int		ft_is_digit(char **argv);
 long	ft_time(void);
 void	print_state(char *str, char *color, t_data *data);
 void 	ft_error(char *str);
-void	ft_check(int return_value);
 
 #endif
