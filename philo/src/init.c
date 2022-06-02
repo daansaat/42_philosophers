@@ -62,8 +62,7 @@ int	init_monitor(t_data *data)
 	if (pthread_create(&data->monitor, NULL, &death_monitor, \
 	(void*)data) != 0)
 		return (ft_error("pthead_create() failed"));
-	if (pthread_detach(data->monitor) != 0)
-		return (ft_error("pthread_detach() failed"));
+	pthread_detach(data->monitor);
 	return (0);
 }
 
@@ -82,8 +81,7 @@ int	init_threads(t_data *data)
 	i = 0;
 	while (i < data->p)
 	{
-		if (pthread_join(data->threads[i], NULL) != 0)
-			return (ft_error("pthread_join() failed"));
+		pthread_join(data->threads[i], NULL);
 		i++;
 	}
 	return (0);
