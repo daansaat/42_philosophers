@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   monitor.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:22:43 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 17:37:49 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <stdio.h>
 
@@ -19,17 +31,17 @@ void	meals_monitor(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->print);
 }
 
-void*	death_monitor(void *arg)
+void	*death_monitor(void *arg)
 {
 	t_data	*data;
 	long	time;
 	int		i;
 
 	data = (t_data *)arg;
-	while (!data->done_eating)
+	while (!data->has_died && !data->done_eating)
 	{
-		i = 0;
-		while (i < data->p)
+		i = -1;
+		while (!data->has_died && ++i < data->p)
 		{
 			time = ft_time();
 			if (time - data->philo[i].time_last_meal > data->time_die)
@@ -42,9 +54,7 @@ void*	death_monitor(void *arg)
 					data->has_died = 1;
 				}
 				pthread_mutex_unlock(&data->print);
-				return (0);
 			}
-			i++;
 		}
 	}
 	return (0);

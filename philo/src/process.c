@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   process.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 17:32:58 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <unistd.h>
 
@@ -52,7 +64,7 @@ static void	take_forks(t_philo *philo)
 		eating(philo);
 }
 
-void*	dining(void *arg)
+void	*dining(void *arg)
 {
 	t_philo	*philo;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   child_bonus.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 17:42:26 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 #include <stdio.h>
 #include <unistd.h>
@@ -26,21 +38,21 @@ static void	eating(t_data *data)
 		sem_post(data->print_id);
 	}
 	else
-    	print_state("is eating", GREEN, data);
+		print_state("is eating", GREEN, data);
 	usleep(data->time_eat);
 }
 
 static void	take_forks(t_data *data)
 {
-    sem_wait(data->can_sit_id);
+	sem_wait(data->can_sit_id);
 	sem_wait(data->fork_id);
 	print_state("has taken a fork", BLUE, data);
-    sem_wait(data->fork_id);
+	sem_wait(data->fork_id);
 	print_state("has taken a fork", BLUE, data);
 	sem_post(data->can_sit_id);
 	eating(data);
-    sem_post(data->fork_id);
-    sem_post(data->fork_id);
+	sem_post(data->fork_id);
+	sem_post(data->fork_id);
 }
 
 static void	*death_monitor(void *arg)
@@ -65,16 +77,16 @@ static void	*death_monitor(void *arg)
 	return (0);
 }
 
-void    ft_child_process(t_data *data)
+void	ft_child_process(t_data *data)
 {
-    pthread_t	death;
+	pthread_t	death;
 
-	if (pthread_create(&death, NULL, &death_monitor, (void*)data) != 0)
+	if (pthread_create(&death, NULL, &death_monitor, (void *)data) != 0)
 		ft_error(data, "pthread_create() failed");
 	pthread_detach(death);
-    while (1)
-    {
-        take_forks(data);
-        sleeping(data);
-    }
+	while (1)
+	{
+		take_forks(data);
+		sleeping(data);
+	}
 }

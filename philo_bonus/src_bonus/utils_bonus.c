@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utils_bonus.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 19:22:58 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_bonus.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,7 +25,7 @@ void	ft_error(t_data *data, char *str)
 long	ft_time(void)
 {
 	struct timeval	time;
-	
+
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }	
@@ -24,7 +36,8 @@ void	print_state(char *str, char *color, t_data *data)
 
 	sem_wait(data->print_id);
 	time_ms = ft_time() - data->time_start;
-	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, RESET);
+	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, \
+	RESET);
 	sem_post(data->print_id);
 }
 

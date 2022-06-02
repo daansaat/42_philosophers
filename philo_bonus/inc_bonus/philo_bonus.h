@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   philo_bonus.h                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 17:41:53 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 # include <semaphore.h>
@@ -10,10 +22,10 @@
 # define TEAL "\033[0;36m"
 # define RESET "\033[0m"
 
-typedef struct	s_data
+typedef struct s_data
 {
 	int		p;
-    int     n;
+	int		n;
 	int		meals;
 	int		done_eating;
 	long	time_start;
@@ -22,28 +34,27 @@ typedef struct	s_data
 	long	time_eat;
 	long	time_sleep;
 	pid_t	*pid_child;
-	sem_t   *fork_id;
+	sem_t	*fork_id;
 	sem_t	*can_sit_id;
-    sem_t   *print_id;
+	sem_t	*print_id;
 	sem_t	*meals_id;
 	sem_t	*done_eating_id;
 	sem_t	*death_id;
 }				t_data;
 
-void    init_struct(t_data *data, char **argv);
-void    init_semaphore(t_data *data);
-void    init_processes(t_data *data);
-void 	kill_children(t_data *data);
+void	init_struct(t_data *data, char **argv);
+void	init_semaphore(t_data *data);
+void	init_processes(t_data *data);
+void	kill_children(t_data *data);
 
-void    ft_parent_monitor(t_data *data);
-void    ft_child_process(t_data *data);
+void	ft_parent_monitor(t_data *data);
+void	ft_child_process(t_data *data);
 
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
 long	ft_time(void);
 void	print_state(char *str, char *color, t_data *data);
-void 	ft_error(t_data *data, char *str);
-void 	clean_up(t_data *data);
-
+void	ft_error(t_data *data, char *str);
+void	clean_up(t_data *data);
 
 #endif

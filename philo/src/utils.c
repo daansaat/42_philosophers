@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   utils.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 17:33:08 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <sys/time.h>
 #include <stdio.h>
@@ -11,7 +23,7 @@ int	ft_error(char *str)
 long	ft_time(void)
 {
 	struct timeval	time;
-	
+
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }	

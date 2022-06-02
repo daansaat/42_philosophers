@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   init.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
+/*   Updated: 2022/06/02 17:29:37 by dsaat         ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,7 +72,7 @@ int	init_mutex(t_data *data)
 int	init_monitor(t_data *data)
 {
 	if (pthread_create(&data->monitor, NULL, &death_monitor, \
-	(void*)data) != 0)
+	(void *)data) != 0)
 		return (ft_error("pthead_create() failed"));
 	pthread_detach(data->monitor);
 	return (0);
@@ -69,12 +81,12 @@ int	init_monitor(t_data *data)
 int	init_threads(t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < data->p)
 	{
 		if (pthread_create(&data->threads[i], NULL, &dining, \
-		(void*)&data->philo[i]) != 0)
+		(void *)&data->philo[i]) != 0)
 			return (ft_error("pthead_create() failed"));
 		i++;
 	}
