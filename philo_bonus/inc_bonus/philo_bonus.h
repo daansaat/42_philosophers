@@ -4,7 +4,7 @@
 
 # define GREEN "\033[0;32m"
 # define RED "\033[1;31m"
-# define YELLOW "\033[1;33m"
+# define YELLOW "\033[0;33m"
 # define PURPLE "\033[0;35m"
 # define BLUE "\033[0;34m"
 # define TEAL "\033[0;36m"
