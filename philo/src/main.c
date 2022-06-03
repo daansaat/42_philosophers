@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:37 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 09:12:04 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/03 13:04:20 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 		return (ft_input_help());
 	if (!ft_is_digit(argv))
 		return (ft_input_help());
-	if (ft_atoi(argv[1]) < 2 || ft_atoi(argv[1]) > 2000)
+	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 2000)
 		return (ft_input_help());
 	if (argv[5] && ft_atoi(argv[5]) <= 0)
 		return (ft_input_help());

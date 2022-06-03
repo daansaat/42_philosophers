@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:43 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:37:49 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 14:28:42 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	meals_monitor(t_philo *philo)
 		i = 0;
 		printf("%ldms %sP%d is eating\n%s", ft_time() - \
 		philo->data->time_start, GREEN, philo->n + 1, RESET);
+		philo->time_print = ft_time();
 		while (philo->data->philo[i].meals == 0 && i < philo->data->p)
 			i++;
 		if (i == philo->data->p)

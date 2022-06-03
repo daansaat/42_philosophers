@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:39:55 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 14:17:03 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 	int				rfork;
 	int				meals;
 	long			time_last_meal;
+	long			time_print;
 	struct s_data	*data;
 }				t_philo;
 

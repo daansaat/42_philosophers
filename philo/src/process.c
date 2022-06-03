@@ -6,18 +6,29 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 09:11:39 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/03 14:55:42 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
 
+static void	smart_sleep(t_philo *philo, long time)
+{
+	if (!philo->data->has_died && !philo->data->done_eating)
+	{
+		usleep(time * 900);
+		while (ft_time() - philo->time_print < time)
+			usleep(1);
+	}
+}
+
 static void	sleeping(t_philo *philo)
 {
 	print_state("is sleeping", YELLOW, philo);
-	usleep(philo->data->time_sleep * 1000);
-	print_state("is thinking", PURPLE, philo);
+	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
+	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
+	smart_sleep(philo, philo->data->time_sleep);
 }
 
 static void	eating(t_philo *philo)
@@ -31,37 +42,28 @@ static void	eating(t_philo *philo)
 	else
 		print_state("is eating", GREEN, philo);
 	pthread_mutex_unlock(&philo->data->meals_monitor);
-	usleep(philo->data->time_eat * 1000);
-	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
-	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
-}
-
-static void	free_forks(t_philo *philo)
-{
-	pthread_mutex_unlock(&philo->data->forks[philo->lfork]);
-	pthread_mutex_unlock(&philo->data->forks[philo->rfork]);
+	smart_sleep(philo, philo->data->time_eat);
+	sleeping(philo);
 }
 
 static void	take_forks(t_philo *philo)
 {
+	print_state("is thinking", PURPLE, philo);
 	if (philo->n % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
-		print_state("has taken a fork", BLUE, philo);
 		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
+		print_state("has taken a fork", BLUE, philo);
+		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
 		print_state("has taken a fork", BLUE, philo);
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
-		print_state("has taken a fork", BLUE, philo);
 		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
 		print_state("has taken a fork", BLUE, philo);
+		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
+		print_state("has taken a fork", BLUE, philo);
 	}
-	if (philo->data->has_died || philo->data->done_eating)
-		free_forks(philo);
-	else
-		eating(philo);
+	eating(philo);
 }
 
 void	*dining(void *arg)
@@ -70,11 +72,6 @@ void	*dining(void *arg)
 
 	philo = (t_philo *)arg;
 	while (!philo->data->has_died && !philo->data->done_eating)
-	{
-		if (!philo->data->has_died && !philo->data->done_eating)
-			take_forks(philo);
-		if (!philo->data->has_died && !philo->data->done_eating)
-			sleeping(philo);
-	}
+		take_forks(philo);
 	return (0);
 }

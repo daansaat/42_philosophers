@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:33:08 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 14:17:30 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	print_state(char *str, char *color, t_philo *philo)
 	{
 		time_ms = ft_time() - philo->data->time_start;
 		printf("%ldms %sP%d %s\n%s", time_ms, color, philo->n + 1, str, RESET);
+		philo->time_print = ft_time();
 	}
 	pthread_mutex_unlock(&philo->data->print);
 }
