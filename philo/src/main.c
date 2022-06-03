@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:37 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:30:38 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 09:12:04 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv)
 	if (ft_atoi(argv[1]) < 2 || ft_atoi(argv[1]) > 2000)
 		return (ft_input_help());
 	if (argv[5] && ft_atoi(argv[5]) <= 0)
-		return (0);
+		return (ft_input_help());
 	if (init_struct(argv, &data))
 		return (1);
 	if (init_mutex(&data))

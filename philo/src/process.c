@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:32:58 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 09:11:39 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ static void	take_forks(t_philo *philo)
 	if (philo->n % 2 == 0)
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
-		print_state("has taken left fork", BLUE, philo);
+		print_state("has taken a fork", BLUE, philo);
 		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
-		print_state("has taken right fork", BLUE, philo);
+		print_state("has taken a fork", BLUE, philo);
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
-		print_state("has taken right fork", BLUE, philo);
+		print_state("has taken a fork", BLUE, philo);
 		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
-		print_state("has taken left fork", BLUE, philo);
+		print_state("has taken a fork", BLUE, philo);
 	}
 	if (philo->data->has_died || philo->data->done_eating)
 		free_forks(philo);
