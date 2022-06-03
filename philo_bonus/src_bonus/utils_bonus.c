@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 19:22:58 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 15:09:59 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	print_state(char *str, char *color, t_data *data)
 	time_ms = ft_time() - data->time_start;
 	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, \
 	RESET);
+	data->time_print = ft_time();
 	sem_post(data->print_id);
 }
 

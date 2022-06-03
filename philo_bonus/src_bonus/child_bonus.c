@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:42:26 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 15:32:15 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 static void	sleeping(t_data *data)
 {
 	print_state("is sleeping", YELLOW, data);
-	usleep(data->time_sleep);
-	print_state("is thinking", PURPLE, data);
+	usleep(data->time_sleep * 920);
+	while (ft_time() - data->time_print < data->time_sleep)
+		usleep(data->time_sleep * 3);
 }
 
 static void	eating(t_data *data)
@@ -39,11 +40,14 @@ static void	eating(t_data *data)
 	}
 	else
 		print_state("is eating", GREEN, data);
-	usleep(data->time_eat);
+	usleep(data->time_eat * 920);
+	while (ft_time() - data->time_print < data->time_eat)
+		usleep(data->time_eat * 3);
 }
 
 static void	take_forks(t_data *data)
 {
+	print_state("is thinking", PURPLE, data);
 	sem_wait(data->can_sit_id);
 	sem_wait(data->fork_id);
 	print_state("has taken a fork", BLUE, data);

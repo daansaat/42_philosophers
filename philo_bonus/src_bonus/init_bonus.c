@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 19:18:57 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 15:09:04 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	init_struct(t_data *data, char **argv)
 	if (argv[5])
 		data->meals = ft_atoi(argv[5]);
 	data->time_die = ft_atoi(argv[2]);
-	data->time_eat = ft_atoi(argv[3]) * 1000;
-	data->time_sleep = ft_atoi(argv[4]) * 1000;
+	data->time_eat = ft_atoi(argv[3]);
+	data->time_sleep = ft_atoi(argv[4]);
 	data->pid_child = malloc(sizeof(pid_t) * (data->p + 1));
 	if (!data->pid_child)
 		ft_error(data, "malloc() failed");

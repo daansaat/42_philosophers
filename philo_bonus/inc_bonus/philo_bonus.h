@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:41:53 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/03 15:08:23 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	long	time_die;
 	long	time_eat;
 	long	time_sleep;
+	long	time_print;
 	pid_t	*pid_child;
 	sem_t	*fork_id;
 	sem_t	*can_sit_id;
