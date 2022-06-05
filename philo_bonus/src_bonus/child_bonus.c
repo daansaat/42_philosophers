@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 15:32:15 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/05 12:59:06 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
-
-static void	sleeping(t_data *data)
-{
-	print_state("is sleeping", YELLOW, data);
-	usleep(data->time_sleep * 920);
-	while (ft_time() - data->time_print < data->time_sleep)
-		usleep(data->time_sleep * 3);
-}
-
-static void	eating(t_data *data)
-{
-	data->time_last_meal = ft_time();
-	if (data->meals > 0)
-		data->meals -= 1;
-	if (data->meals == 0 && !data->done_eating)
-	{
-		data->done_eating = 1;
-		sem_wait(data->print_id);
-		printf("%s%ldms %sP%d is eating\n%s", RESET, ft_time() - \
-		data->time_start, GREEN, data->n + 1, RESET);
-		sem_post(data->meals_id);
-		sem_wait(data->done_eating_id);
-		sem_post(data->print_id);
-	}
-	else
-		print_state("is eating", GREEN, data);
-	usleep(data->time_eat * 920);
-	while (ft_time() - data->time_print < data->time_eat)
-		usleep(data->time_eat * 3);
-}
-
-static void	take_forks(t_data *data)
-{
-	print_state("is thinking", PURPLE, data);
-	sem_wait(data->can_sit_id);
-	sem_wait(data->fork_id);
-	print_state("has taken a fork", BLUE, data);
-	sem_wait(data->fork_id);
-	print_state("has taken a fork", BLUE, data);
-	sem_post(data->can_sit_id);
-	eating(data);
-	sem_post(data->fork_id);
-	sem_post(data->fork_id);
-}
 
 static void	*death_monitor(void *arg)
 {
@@ -81,6 +37,28 @@ static void	*death_monitor(void *arg)
 	return (0);
 }
 
+static void	eating(t_data *data)
+{
+	if (data->meals > 0)
+		data->meals -= 1;
+	if (data->meals == 0 && !data->done_eating)
+	{
+		data->done_eating = 1;
+		sem_wait(data->print_id);
+		printf("%s%ldms %sP%d is eating\n%s", RESET, ft_time() - \
+		data->time_start, GREEN, data->n + 1, RESET);
+		sem_post(data->meals_id);
+		sem_wait(data->done_eating_id);
+		sem_post(data->print_id);
+	}
+	else
+		print_state("is eating", GREEN, data);
+	data->time_last_meal = ft_time();
+	usleep(data->time_eat * 800);
+	while (ft_time() - data->time_print < data->time_eat)
+		usleep(1);
+}
+
 void	ft_child_process(t_data *data)
 {
 	pthread_t	death;
@@ -90,7 +68,19 @@ void	ft_child_process(t_data *data)
 	pthread_detach(death);
 	while (1)
 	{
-		take_forks(data);
-		sleeping(data);
+		print_state("is thinking", PURPLE, data);
+		sem_wait(data->can_sit_id);
+		sem_wait(data->fork_id);
+		print_state("has taken a fork", BLUE, data);
+		sem_wait(data->fork_id);
+		print_state("has taken a fork", BLUE, data);
+		sem_post(data->can_sit_id);
+		eating(data);
+		sem_post(data->fork_id);
+		sem_post(data->fork_id);
+		print_state("is sleeping", YELLOW, data);
+		usleep(data->time_sleep * 920);
+		while (ft_time() - data->time_print < data->time_sleep)
+			usleep(1);	
 	}
 }

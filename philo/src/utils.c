@@ -6,13 +6,14 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:17:30 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/05 12:28:56 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int	ft_error(char *str)
 {
