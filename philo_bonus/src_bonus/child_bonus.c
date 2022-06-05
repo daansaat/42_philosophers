@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/05 12:59:06 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/05 13:42:04 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ void	ft_child_process(t_data *data)
 		print_state("has taken a fork", BLUE, data);
 		sem_wait(data->fork_id);
 		print_state("has taken a fork", BLUE, data);
-		sem_post(data->can_sit_id);
 		eating(data);
 		sem_post(data->fork_id);
 		sem_post(data->fork_id);
+		sem_post(data->can_sit_id);
 		print_state("is sleeping", YELLOW, data);
-		usleep(data->time_sleep * 920);
+		usleep(data->time_sleep * 800);
 		while (ft_time() - data->time_print < data->time_sleep)
 			usleep(1);	
 	}
