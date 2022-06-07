@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/05 12:29:00 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/07 12:11:53 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	precise_sleep(t_philo *philo, long time)
 	{
 		if (ft_time() - philo->time_print >= time)
 			break ;
-		usleep(1);
+		usleep(500);
 	}
 }
 

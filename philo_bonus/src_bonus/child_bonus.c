@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/05 13:42:04 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/07 12:22:33 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,8 @@ static void	eating(t_data *data)
 	else
 		print_state("is eating", GREEN, data);
 	data->time_last_meal = ft_time();
-	usleep(data->time_eat * 800);
 	while (ft_time() - data->time_print < data->time_eat)
-		usleep(1);
+		usleep(500);
 }
 
 void	ft_child_process(t_data *data)
@@ -79,8 +78,7 @@ void	ft_child_process(t_data *data)
 		sem_post(data->fork_id);
 		sem_post(data->can_sit_id);
 		print_state("is sleeping", YELLOW, data);
-		usleep(data->time_sleep * 800);
 		while (ft_time() - data->time_print < data->time_sleep)
-			usleep(1);	
+			usleep(500);	
 	}
 }
