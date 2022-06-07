@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:22:33 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/07 12:23:39 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	ft_child_process(t_data *data)
 		sem_post(data->can_sit_id);
 		print_state("is sleeping", YELLOW, data);
 		while (ft_time() - data->time_print < data->time_sleep)
-			usleep(500);	
+			usleep(500);
 	}
 }
