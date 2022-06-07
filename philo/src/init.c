@@ -6,12 +6,11 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/02 17:29:37 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/07 12:25:08 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 static void	init_philo(char **argv, t_data *data)

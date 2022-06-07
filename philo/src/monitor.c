@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:43 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/05 12:28:50 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/07 12:27:05 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ void	*death_monitor(void *arg)
 		i = -1;
 		while (!data->has_died && ++i < data->p)
 		{
+			pthread_mutex_lock(&data->print);
 			time = ft_time();
 			if (time - data->philo[i].time_last_meal > data->time_die)
 			{
-				pthread_mutex_lock(&data->print);
 				if (!data->done_eating)
 				{
 					printf("%ldms %sP%d has died\n%s", ft_time() - \
 					data->time_start, RED, data->philo[i].n + 1, RESET);
 					data->has_died = 1;
 				}
-				pthread_mutex_unlock(&data->print);
 			}
+			pthread_mutex_unlock(&data->print);
 		}
 	}
 	return (0);
