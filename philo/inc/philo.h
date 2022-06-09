@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 08:46:04 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/09 18:41:27 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ typedef struct s_data
 	pthread_t		*threads;
 	pthread_t		monitor;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*time_last_meal;
-	pthread_mutex_t	meals_monitor;
-	pthread_mutex_t	print;
-	pthread_mutex_t	done;
+	pthread_mutex_t	mutex;
 	t_philo			*philo;
 }				t_data;
 
