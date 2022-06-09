@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 18:40:30 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/09 19:22:37 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	init_struct(char **argv, t_data *data)
 		return (1);
 	data->time_start = ft_time();
 	data->has_died = 0;
+	data->fed = 0;
 	data->done_eating = 0;
 	data->time_die = ft_atoi(argv[2]);
 	data->time_eat = ft_atoi(argv[3]);

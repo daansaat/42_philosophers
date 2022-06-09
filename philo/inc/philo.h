@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 18:41:27 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/09 19:22:25 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 {
 	int				p;
 	int				has_died;
+	int				fed;
 	int				done_eating;
 	long			time_start;
 	long			time_die;
