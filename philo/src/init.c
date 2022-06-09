@@ -6,12 +6,14 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:25:08 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 08:58:26 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+
+#include <stdio.h>
 
 static void	init_philo(char **argv, t_data *data)
 {
@@ -37,8 +39,9 @@ int	init_struct(char **argv, t_data *data)
 	data->p = ft_atoi(argv[1]);
 	data->threads = malloc(sizeof(pthread_t) * data->p);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
+	data->time_last_meal = malloc(sizeof(pthread_mutex_t) * data->p);
 	data->philo = malloc(sizeof(t_philo) * data->p);
-	if (!data->threads || !data->monitor || !data->forks || !data->philo)
+	if (!data->threads || !data->forks || !data->philo)
 		return (1);
 	data->time_start = ft_time();
 	data->has_died = 0;
@@ -61,26 +64,39 @@ int	init_mutex(t_data *data)
 			return (ft_error("pthread_mutex_init() failed"));
 		i++;
 	}
+	i = 0;
+	while (i < data->p)
+	{
+		if (pthread_mutex_init(&data->time_last_meal[i], NULL) != 0)
+			return (ft_error("pthread_mutex_init() failed"));
+		i++;
+	}
 	if (pthread_mutex_init(&data->print, NULL) != 0)
 		return (ft_error("pthread_mutex_init failed() failed"));
 	if (pthread_mutex_init(&data->meals_monitor, NULL) != 0)
 		return (ft_error("pthread_mutex_init failed() failed"));
+	if (pthread_mutex_init(&data->done, NULL) != 0)
+		return (ft_error("pthread_mutex_init failed() failed"));
 	return (0);
 }	
 
-int	init_monitor(t_data *data)
-{
-	if (pthread_create(&data->monitor, NULL, &death_monitor, \
-	(void *)data) != 0)
-		return (ft_error("pthead_create() failed"));
-	pthread_detach(data->monitor);
-	return (0);
-}
+// int	init_monitor(t_data *data)
+// {
+// 	if (pthread_create(&data->monitor, NULL, &death_monitor, \
+// 	(void *)data) != 0)
+// 		return (ft_error("pthead_create() failed"));
+// 	pthread_detach(data->monitor);
+// 	return (0);
+// }
 
 int	init_threads(t_data *data)
 {
 	int	i;
 
+	if (pthread_create(&data->monitor, NULL, &death_monitor, \
+	(void *)data) != 0)
+		return (ft_error("pthead_create() failed"));
+	pthread_detach(data->monitor);
 	i = 0;
 	while (i < data->p)
 	{

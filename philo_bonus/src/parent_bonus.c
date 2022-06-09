@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:06 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:32:17 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 17:59:16 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	kill_children(t_data *data)
 	i = 0;
 	while (data->pid_child && data->pid_child[i])
 	{
-		kill(data->pid_child[i], SIGKILL);
+		kill(data->pid_child[i], SIGTERM);
 		i++;
 	}
 	printf("%s", RESET);
@@ -37,10 +37,12 @@ static void	*meals_monitor(void *arg)
 	philo = data->p;
 	while (philo)
 	{
-		sem_wait(data->meals_id);
+		sem_wait(data->done_eating_id);
 		philo--;
+		if (philo != 0)
+			sem_post(data->mutex_id);
 	}
-	sem_close(data->meals_id);
+	sem_close(data->done_eating_id);
 	kill_children(data);
 	return (0);
 }

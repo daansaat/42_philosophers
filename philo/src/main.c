@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:37 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 13:04:20 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 08:58:45 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_mutex(&data))
 		return (1);
-	if (init_monitor(&data) || init_threads(&data))
+	if (init_threads(&data))//(init_monitor(&data) || init_threads(&data))
 		return (1);
 	free_and_destroy(&data);
 	return (0);

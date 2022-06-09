@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:23:39 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 17:58:44 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,42 +18,35 @@
 static void	*death_monitor(void *arg)
 {
 	t_data	*data;
-	long	time;
 
 	data = (t_data *)arg;
 	while (1)
 	{
-		sem_wait(data->print_id);
-		time = ft_time();
-		if (time - data->time_last_meal > data->time_die)
+		sem_wait(data->mutex_id);
+		if (ft_time() - data->time_last_meal > data->time_die)
 		{
-			printf("%s%ldms %sP%d has died\n%s", RESET, time - \
+			printf("%s%ldms %sP%d has died\n%s", RESET, ft_time() - \
 			data->time_start, RED, data->n + 1, RESET);
 			sem_post(data->death_id);
 			break ;
 		}
-		sem_post(data->print_id);
+		sem_post(data->mutex_id);
 	}
 	return (0);
 }
 
 static void	eating(t_data *data)
 {
-	if (data->meals > 0)
-		data->meals -= 1;
-	if (data->meals == 0 && !data->done_eating)
-	{
-		data->done_eating = 1;
-		sem_wait(data->print_id);
-		printf("%s%ldms %sP%d is eating\n%s", RESET, ft_time() - \
-		data->time_start, GREEN, data->n + 1, RESET);
-		sem_post(data->meals_id);
-		sem_wait(data->done_eating_id);
-		sem_post(data->print_id);
-	}
-	else
-		print_state("is eating", GREEN, data);
+	sem_wait(data->mutex_id);
+	printf("%s%ldms %sP%d is eating\n%s", RESET, ft_time() - \
+	data->time_start, GREEN, data->n + 1, RESET);
 	data->time_last_meal = ft_time();
+	data->meals -= 1;
+	if (data->meals == 0)
+		sem_post(data->done_eating_id);
+	else
+		sem_post(data->mutex_id);
+	data->time_print = ft_time();
 	while (ft_time() - data->time_print < data->time_eat)
 		usleep(500);
 }

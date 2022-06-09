@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 15:08:23 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 17:40:10 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_data
 	int		p;
 	int		n;
 	int		meals;
-	int		done_eating;
+	// int		done_eating;
 	long	time_start;
 	long	time_last_meal;
 	long	time_die;
@@ -37,7 +37,7 @@ typedef struct s_data
 	pid_t	*pid_child;
 	sem_t	*fork_id;
 	sem_t	*can_sit_id;
-	sem_t	*print_id;
+	sem_t	*mutex_id;
 	sem_t	*meals_id;
 	sem_t	*done_eating_id;
 	sem_t	*death_id;

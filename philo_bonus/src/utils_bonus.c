@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:32:33 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 16:46:59 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	print_state(char *str, char *color, t_data *data)
 {
 	long	time_ms;
 
-	sem_wait(data->print_id);
+	sem_wait(data->mutex_id);
 	time_ms = ft_time() - data->time_start;
 	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, \
 	RESET);
 	data->time_print = ft_time();
-	sem_post(data->print_id);
+	sem_post(data->mutex_id);
 }
 
 int	ft_atoi(const char *str)

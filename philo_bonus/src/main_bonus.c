@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:03 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:31:44 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 16:46:59 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	clean_up(t_data *data)
 	sem_unlink("/death");
 	sem_close(data->fork_id);
 	sem_close(data->can_sit_id);
-	sem_close(data->print_id);
+	sem_close(data->mutex_id);
 	sem_close(data->done_eating_id);
 	free(data->pid_child);
 }

@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/03 14:17:03 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 08:46:04 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ typedef struct s_data
 	pthread_t		*threads;
 	pthread_t		monitor;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	print;
+	pthread_mutex_t	*time_last_meal;
 	pthread_mutex_t	meals_monitor;
+	pthread_mutex_t	print;
+	pthread_mutex_t	done;
 	t_philo			*philo;
-
 }				t_data;
 
 int		init_struct(char **argv, t_data *data);
@@ -61,6 +62,7 @@ int		init_mutex(t_data *data);
 void	*dining(void *arg);
 void	*death_monitor(void *arg);
 void	meals_monitor(t_philo *philo);
+int		check_if_done(t_data *data);
 
 int		ft_error(char *str);
 int		ft_atoi(const char *str);

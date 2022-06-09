@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/07 12:31:07 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/09 17:58:20 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_struct(t_data *data, char **argv)
 	data->time_start = ft_time();
 	data->time_last_meal = data->time_start;
 	data->meals = -1;
-	data->done_eating = 0;
 	if (argv[5])
 		data->meals = ft_atoi(argv[5]);
 	data->time_die = ft_atoi(argv[2]);
@@ -37,22 +36,22 @@ void	init_semaphore(t_data *data)
 {
 	sem_unlink("/fork");
 	sem_unlink("/can_sit");
-	sem_unlink("/print");
-	sem_unlink("/meals");
+	sem_unlink("/mutex");
 	sem_unlink("/done_eating");
 	sem_unlink("/death");
-	data->fork_id = sem_open("/fork", O_CREAT | O_EXCL, S_IRUSR | \
-	S_IWUSR, data->p);
-	data->can_sit_id = sem_open("/can_sit", O_CREAT | O_EXCL, S_IRUSR | \
-	S_IWUSR, data->p / 2);
-	data->print_id = sem_open("/print", O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
-	data->meals_id = sem_open("/meals", O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
-	data->done_eating_id = sem_open("/done_eating", O_CREAT | O_EXCL, S_IRUSR | \
-	S_IWUSR, data->p - 1);
-	data->death_id = sem_open("/death", O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
-	if (data->fork_id == SEM_FAILED || data->print_id == SEM_FAILED \
-	|| data->meals_id == SEM_FAILED || data->done_eating_id == SEM_FAILED \
-	|| data->death_id == SEM_FAILED || data->can_sit_id == SEM_FAILED)
+	data->fork_id = sem_open("/fork", 
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p);
+	data->can_sit_id = sem_open("/can_sit", 
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p / 2);
+	data->mutex_id = sem_open("/mutex", 
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
+	data->done_eating_id = sem_open("/done_eating", 
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
+	data->death_id = sem_open("/death", 
+			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
+	if (data->fork_id == SEM_FAILED || data->mutex_id == SEM_FAILED \
+	|| data->done_eating_id == SEM_FAILED || data->death_id == SEM_FAILED \
+	|| data->can_sit_id == SEM_FAILED)
 		ft_error(data, "sem_open() failed");
 }
 
