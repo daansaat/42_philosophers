@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:06 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 17:59:16 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 11:44:38 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	kill_children(t_data *data)
 		kill(data->pid_child[i], SIGTERM);
 		i++;
 	}
+	free(data->pid_child);
 	printf("%s", RESET);
 }
 

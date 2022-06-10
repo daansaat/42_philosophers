@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 16:46:59 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 11:46:42 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void	ft_error(t_data *data, char *str)
 {
 	printf("%s%s%s\n", RED, str, RESET);
+	kill_children(data);
 	clean_up(data);
 	exit(EXIT_FAILURE);
 }
@@ -30,16 +31,26 @@ long	ft_time(void)
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }	
 
-void	print_state(char *str, char *color, t_data *data)
+int	ft_input_help(void)
 {
-	long	time_ms;
-
-	sem_wait(data->mutex_id);
-	time_ms = ft_time() - data->time_start;
-	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, \
-	RESET);
-	data->time_print = ft_time();
-	sem_post(data->mutex_id);
+	printf(" ____________________________________________________ \n");
+	printf("|                                                    |\n");
+	printf("|          Please enter 4 or 5 VALID arguments       |\n");
+	printf("|____________________________________________________|\n");
+	printf("|                                                    |\n");
+	printf("|         [1][%sNumber of philosophers%s][2 - 500]       |\n", \
+	PURPLE, RESET);
+	printf("|         [2][%sTime to die%s][milliseconds]             |\n", \
+	RED, RESET);
+	printf("|         [3][%sTime to eat%s][milliseconds]             |\n", \
+	GREEN, RESET);
+	printf("|         [4][%sTime to sleep%s][milliseconds]           |\n", \
+	YELLOW, RESET);
+	printf("|      (( [5][%sNumber of meals%s][ > 0] ))              |\n", \
+	TEAL, RESET);
+	printf("|____________________________________________________|\n");
+	printf("\n");
+	return (1);
 }
 
 int	ft_atoi(const char *str)

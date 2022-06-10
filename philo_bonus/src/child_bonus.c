@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 17:58:44 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 11:45:34 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ static void	*death_monitor(void *arg)
 		sem_post(data->mutex_id);
 	}
 	return (0);
+}
+
+static void	print_state(char *str, char *color, t_data *data)
+{
+	long	time_ms;
+
+	sem_wait(data->mutex_id);
+	time_ms = ft_time() - data->time_start;
+	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, \
+	RESET);
+	data->time_print = ft_time();
+	sem_post(data->mutex_id);
 }
 
 static void	eating(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 17:40:10 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 11:46:11 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_data
 	sem_t	*fork_id;
 	sem_t	*can_sit_id;
 	sem_t	*mutex_id;
-	sem_t	*meals_id;
 	sem_t	*done_eating_id;
 	sem_t	*death_id;
 }				t_data;
@@ -53,8 +52,8 @@ void	ft_child_process(t_data *data);
 
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
+int		ft_input_help(void);
 long	ft_time(void);
-void	print_state(char *str, char *color, t_data *data);
 void	ft_error(t_data *data, char *str);
 void	clean_up(t_data *data);
 
