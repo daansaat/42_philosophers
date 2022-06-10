@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 14:38:18 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/10 18:07:24 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,8 @@ int	check_if_done(t_data *data)
 static void	precise_sleep(t_philo *philo, long time)
 {
 	usleep(time * 500);
-	while (!check_if_done(philo->data))
-	{
-		if (ft_time() - philo->time_now >= time)
-			break ;
+	while (ft_time() - philo->time_now <= time)
 		usleep(100);
-	}
 }
 
 static void	print_state(char *str, char *color, t_philo *philo)

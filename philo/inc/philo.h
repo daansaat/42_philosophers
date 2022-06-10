@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 09:58:57 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 18:32:00 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		init_mutex(t_data *data);
 int		init_threads(t_data *data);
 
 void	*dining(void *arg);
-void	*death_monitor(void *arg);
+void	death_monitor(t_data *data);
 void	meals_monitor(t_philo *philo);
 
 long	ft_time(void);

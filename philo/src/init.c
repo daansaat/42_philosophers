@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 09:24:33 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 18:30:53 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,6 @@ int	init_threads(t_data *data)
 {
 	int	i;
 
-	if (pthread_create(&data->monitor, NULL, &death_monitor, \
-	(void *)data) != 0)
-		return (ft_error("pthead_create() failed"));
-	pthread_detach(data->monitor);
 	i = 0;
 	while (i < data->p)
 	{
@@ -83,11 +79,17 @@ int	init_threads(t_data *data)
 			return (ft_error("pthead_create() failed"));
 		i++;
 	}
-	i = 0;
-	while (i < data->p)
+	if (data->p == 1)
+		pthread_detach(data->threads[0]);
+	death_monitor(data);
+	if (data->p > 1)
 	{
-		pthread_join(data->threads[i], NULL);
-		i++;
+		i = 0;
+		while (i < data->p)
+		{
+			pthread_join(data->threads[i], NULL);
+			i++;
+		}
 	}
 	return (0);
 }
