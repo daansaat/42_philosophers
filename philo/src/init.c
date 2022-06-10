@@ -6,14 +6,12 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 19:22:37 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:24:33 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
-
-#include <stdio.h>
 
 static void	init_philo(char **argv, t_data *data)
 {
@@ -41,11 +39,11 @@ int	init_struct(char **argv, t_data *data)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
 	data->philo = malloc(sizeof(t_philo) * data->p);
 	if (!data->threads || !data->forks || !data->philo)
-		return (1);
-	data->time_start = ft_time();
-	data->has_died = 0;
+		return (ft_error("malloc() failed"));
 	data->fed = 0;
 	data->done_eating = 0;
+	data->has_died = 0;
+	data->time_start = ft_time();
 	data->time_die = ft_atoi(argv[2]);
 	data->time_eat = ft_atoi(argv[3]);
 	data->time_sleep = ft_atoi(argv[4]);

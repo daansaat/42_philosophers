@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 18:37:29 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 08:57:29 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_state(char *str, char *color, t_philo *philo)
 	{
 		time_ms = ft_time() - philo->data->time_start;
 		printf("%ldms %sP%d %s\n%s", time_ms, color, philo->n + 1, str, RESET);
-		philo->time_print = ft_time();
+		philo->time_now = ft_time();
 	}
 	pthread_mutex_unlock(&philo->data->mutex);
 }
@@ -51,6 +51,8 @@ int	ft_is_digit(char **argv)
 	while (argv[i])
 	{
 		j = 0;
+		if (argv[i][j] == '+')
+			j++;
 		while (argv[i][j])
 		{
 			if (argv[i][j] < '0' || argv[i][j] > '9')

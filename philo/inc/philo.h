@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 19:22:25 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 08:55:14 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ typedef struct s_philo
 	int				rfork;
 	int				meals;
 	long			time_last_meal;
-	long			time_print;
+	long			time_now;
 	struct s_data	*data;
 }				t_philo;
 
 typedef struct s_data
 {
 	int				p;
-	int				has_died;
 	int				fed;
 	int				done_eating;
+	int				has_died;
 	long			time_start;
 	long			time_die;
 	long			time_eat;
@@ -60,12 +60,12 @@ int		init_mutex(t_data *data);
 void	*dining(void *arg);
 void	*death_monitor(void *arg);
 void	meals_monitor(t_philo *philo);
-int		check_if_done(t_data *data);
+void	print_state(char *str, char *color, t_philo *philo);
 
+long	ft_time(void);
+int		check_if_done(t_data *data);
 int		ft_error(char *str);
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
-long	ft_time(void);
-void	print_state(char *str, char *color, t_philo *philo);
 
 #endif

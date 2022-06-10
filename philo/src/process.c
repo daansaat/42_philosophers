@@ -6,14 +6,12 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 18:53:09 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 08:53:53 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
-
-#include <stdio.h>
 
 int	check_if_done(t_data *data)
 {
@@ -31,7 +29,7 @@ static void	precise_sleep(t_philo *philo, long time)
 {
 	while (!check_if_done(philo->data))
 	{
-		if (ft_time() - philo->time_print >= time)
+		if (ft_time() - philo->time_now >= time)
 			break ;
 		usleep(500);
 	}
@@ -39,20 +37,10 @@ static void	precise_sleep(t_philo *philo, long time)
 
 static void	take_forks(t_philo *philo)
 {
-	// if (philo->n % 2 == 0)
-	// {
-		// pthread_mutex_lock(&philo->data->forks[philo->rfork]);
-		// print_state("has taken a fork", BLUE, philo);
-		// pthread_mutex_lock(&philo->data->forks[philo->lfork]);
-		// print_state("has taken a fork", BLUE, philo);
-	// }
-	// else
-	// {
-		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
-		print_state("has taken a fork", BLUE, philo);
-		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
-		print_state("has taken a fork", BLUE, philo);
-	// }
+	pthread_mutex_lock(&philo->data->forks[philo->lfork]);
+	print_state("has taken a fork", BLUE, philo);
+	pthread_mutex_lock(&philo->data->forks[philo->rfork]);
+	print_state("has taken a fork", BLUE, philo);
 }
 
 void	*dining(void *arg)
@@ -60,7 +48,7 @@ void	*dining(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->n % 2 == 0)
+	if (philo->n % 2 == 1)
 		usleep(10000);
 	while (!check_if_done(philo->data))
 	{
