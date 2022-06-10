@@ -8,7 +8,7 @@ SRC = \
 	monitor.c
 OBJ_DIR = obj/
 OBJ = $(SRC:%.c=$(OBJ_DIR)%.o)
-FLAGS = -Wall -Werror -Wextra -pthread
+FLAGS = -Wall -Werror -Wextra
 INC = -I ./inc
 
 all: $(NAME)
