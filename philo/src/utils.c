@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 09:59:56 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:30:14 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_input_help(void)
 	printf("|          Please enter 4 or 5 VALID arguments       |\n");
 	printf("|____________________________________________________|\n");
 	printf("|                                                    |\n");
-	printf("|         [1][%sNumber of philosophers%s][1 - 200]       |\n", \
+	printf("|         [1][%sNumber of philosophers%s][1 - 2000]      |\n", \
 	PURPLE, RESET);
 	printf("|         [2][%sTime to die%s][milliseconds]             |\n", \
 	RED, RESET);
