@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 08:55:14 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:44:32 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ int		init_mutex(t_data *data);
 void	*dining(void *arg);
 void	*death_monitor(void *arg);
 void	meals_monitor(t_philo *philo);
-void	print_state(char *str, char *color, t_philo *philo);
 
 long	ft_time(void);
-int		check_if_done(t_data *data);
 int		ft_error(char *str);
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
+int		check_if_done(t_data *data);
 
 #endif

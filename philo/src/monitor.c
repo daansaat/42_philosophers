@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:43 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 19:28:34 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:38:58 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ static void	print_final(char *str, char *color, int n, t_data *data, int *var)
 
 void	meals_monitor(t_philo *philo)
 {
-	philo->data->fed += 1;
+	pthread_mutex_lock(&philo->data->mutex);
+	philo->meals -= 1;
+	if (philo->meals == 0)
+		philo->data->fed += 1;
 	if (philo->data->fed == philo->data->p)
-	{
 		print_final("is eating", GREEN, philo->n, \
 		philo->data, &philo->data->done_eating);
-	}
+	philo->time_last_meal = ft_time();
+	pthread_mutex_unlock(&philo->data->mutex);
 }
 
 void	*death_monitor(void *arg)

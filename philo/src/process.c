@@ -6,12 +6,13 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 08:53:53 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:45:09 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
+#include <stdio.h>
 
 int	check_if_done(t_data *data)
 {
@@ -35,12 +36,18 @@ static void	precise_sleep(t_philo *philo, long time)
 	}
 }
 
-static void	take_forks(t_philo *philo)
+static void	print_state(char *str, char *color, t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->forks[philo->lfork]);
-	print_state("has taken a fork", BLUE, philo);
-	pthread_mutex_lock(&philo->data->forks[philo->rfork]);
-	print_state("has taken a fork", BLUE, philo);
+	long	time_ms;
+
+	pthread_mutex_lock(&philo->data->mutex);
+	if (!philo->data->has_died && !philo->data->done_eating)
+	{
+		time_ms = ft_time() - philo->data->time_start;
+		printf("%ldms %sP%d %s\n%s", time_ms, color, philo->n + 1, str, RESET);
+		philo->time_now = ft_time();
+	}
+	pthread_mutex_unlock(&philo->data->mutex);
 }
 
 void	*dining(void *arg)
@@ -53,13 +60,11 @@ void	*dining(void *arg)
 	while (!check_if_done(philo->data))
 	{
 		print_state("is thinking", PURPLE, philo);
-		take_forks(philo);
-		pthread_mutex_lock(&philo->data->mutex);
-		philo->meals -= 1;
-		if (philo->meals == 0)
-			meals_monitor(philo);
-		philo->time_last_meal = ft_time();
-		pthread_mutex_unlock(&philo->data->mutex);
+		pthread_mutex_lock(&philo->data->forks[philo->lfork]);
+		print_state("has taken a fork", BLUE, philo);
+		pthread_mutex_lock(&philo->data->forks[philo->rfork]);
+		print_state("has taken a fork", BLUE, philo);
+		meals_monitor(philo);
 		print_state("is eating", GREEN, philo);
 		precise_sleep(philo, philo->data->time_eat);
 		pthread_mutex_unlock(&philo->data->forks[philo->lfork]);

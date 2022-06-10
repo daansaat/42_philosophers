@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 08:57:29 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:45:22 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,6 @@ long	ft_time(void)
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }	
-
-void	print_state(char *str, char *color, t_philo *philo)
-{
-	long	time_ms;
-
-	pthread_mutex_lock(&philo->data->mutex);
-	if (!philo->data->has_died && !philo->data->done_eating)
-	{
-		time_ms = ft_time() - philo->data->time_start;
-		printf("%ldms %sP%d %s\n%s", time_ms, color, philo->n + 1, str, RESET);
-		philo->time_now = ft_time();
-	}
-	pthread_mutex_unlock(&philo->data->mutex);
-}
 
 int	ft_is_digit(char **argv)
 {
