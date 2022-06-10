@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 09:45:22 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:59:56 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,26 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (x * sign);
+}
+
+int	ft_input_help(void)
+{
+	printf(" ____________________________________________________ \n");
+	printf("|                                                    |\n");
+	printf("|          Please enter 4 or 5 VALID arguments       |\n");
+	printf("|____________________________________________________|\n");
+	printf("|                                                    |\n");
+	printf("|         [1][%sNumber of philosophers%s][1 - 200]       |\n", \
+	PURPLE, RESET);
+	printf("|         [2][%sTime to die%s][milliseconds]             |\n", \
+	RED, RESET);
+	printf("|         [3][%sTime to eat%s][milliseconds]             |\n", \
+	GREEN, RESET);
+	printf("|         [4][%sTime to sleep%s][milliseconds]           |\n", \
+	YELLOW, RESET);
+	printf("|      (( [5][%sNumber of meals%s][ > 0] ))              |\n", \
+	TEAL, RESET);
+	printf("|____________________________________________________|\n");
+	printf("\n");
+	return (1);
 }
