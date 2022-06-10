@@ -6,13 +6,12 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:37 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 09:59:08 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 10:01:40 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 static void	free_and_destroy(t_data *data)
 {
