@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 11:56:03 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:14:25 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static void	eating(t_data *data)
 	else
 		sem_post(data->mutex_id);
 	data->time_print = ft_time();
-	// usleep(data->time_eat * 900);
+	usleep(data->time_eat * 500);
 	while (ft_time() - data->time_print < data->time_eat)
-		usleep(1);
+		usleep(500);
 }
 
 void	ft_child_process(t_data *data)
@@ -71,8 +71,6 @@ void	ft_child_process(t_data *data)
 	if (pthread_create(&death, NULL, &death_monitor, (void *)data) != 0)
 		ft_error(data, "pthread_create() failed");
 	pthread_detach(death);
-	// if (data->n % 2 == 1)
-	// 	usleep(10000);
 	while (1)
 	{
 		print_state("is thinking", PURPLE, data);
@@ -86,8 +84,8 @@ void	ft_child_process(t_data *data)
 		sem_post(data->fork_id);
 		sem_post(data->can_sit_id);
 		print_state("is sleeping", YELLOW, data);
-		// usleep(data->time_sleep * 500);
+		usleep(data->time_sleep * 500);
 		while (ft_time() - data->time_print < data->time_sleep)
-			usleep(1);
+			usleep(500);
 	}
 }

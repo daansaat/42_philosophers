@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 09:45:09 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:07:30 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	check_if_done(t_data *data)
 	pthread_mutex_lock(&data->mutex);
 	if (data->has_died || data->done_eating)
 	{
-		pthread_mutex_unlock(&data->mutex);	
+		pthread_mutex_unlock(&data->mutex);
 		return (1);
 	}
-	pthread_mutex_unlock(&data->mutex);	
+	pthread_mutex_unlock(&data->mutex);
 	return (0);
 }
 

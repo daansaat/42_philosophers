@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/09 17:58:20 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:08:56 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ void	init_semaphore(t_data *data)
 	sem_unlink("/mutex");
 	sem_unlink("/done_eating");
 	sem_unlink("/death");
-	data->fork_id = sem_open("/fork", 
+	data->fork_id = sem_open("/fork",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p);
-	data->can_sit_id = sem_open("/can_sit", 
+	data->can_sit_id = sem_open("/can_sit",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p / 2);
-	data->mutex_id = sem_open("/mutex", 
+	data->mutex_id = sem_open("/mutex",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
-	data->done_eating_id = sem_open("/done_eating", 
+	data->done_eating_id = sem_open("/done_eating",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
-	data->death_id = sem_open("/death", 
+	data->death_id = sem_open("/death",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
 	if (data->fork_id == SEM_FAILED || data->mutex_id == SEM_FAILED \
 	|| data->done_eating_id == SEM_FAILED || data->death_id == SEM_FAILED \
