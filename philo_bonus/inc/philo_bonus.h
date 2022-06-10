@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 11:46:11 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 11:59:11 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ int		ft_is_digit(char **argv);
 int		ft_input_help(void);
 long	ft_time(void);
 void	ft_error(t_data *data, char *str);
-void	clean_up(t_data *data);
+void	clean_up_sem(t_data *data);
 
 #endif

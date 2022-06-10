@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:03 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 11:46:38 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/10 11:59:11 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	clean_up(t_data *data)
+void	clean_up_sem(t_data *data)
 {
 	sem_unlink("/fork");
 	sem_unlink("/can_sit");
@@ -43,6 +43,6 @@ int	main(int argc, char **argv)
 	init_processes(&data);
 	while (waitpid(0, NULL, 0) > 0)
 		;
-	clean_up(&data);
+	clean_up_sem(&data);
 	return (0);
 }
