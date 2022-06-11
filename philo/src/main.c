@@ -6,12 +6,13 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:37 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 10:56:17 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:02:49 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
+#include <limits.h>
 
 int	main(int argc, char **argv)
 {
@@ -19,15 +20,19 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (ft_input_help());
-	if (!ft_is_digit(argv))
+	data.p = ft_atol(argv[1], INT_MAX);
+	data.meals = -1;
+	data.time_die = ft_atol(argv[2], LONG_MAX / 1000);
+	data.time_eat = ft_atol(argv[3], LONG_MAX / 1000);
+	data.time_sleep = ft_atol(argv[4], LONG_MAX / 1000);
+	if (argv[5])
+		data.meals = ft_atol(argv[5], INT_MAX);
+	if (data.p < 1 || data.p > 2000 || data.time_die < 1 
+		|| data.time_eat < 1 || data.time_sleep < 1)
 		return (ft_input_help());
-	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 2000
-		|| ft_atoi(argv[2]) < 1 || ft_atoi(argv[3]) < 1
-		|| ft_atoi(argv[4]) < 1)
+	if (argv[5] && data.meals < 1)
 		return (ft_input_help());
-	if (argv[5] && ft_atoi(argv[5]) <= 0)
-		return (ft_input_help());
-	if (init_struct(argv, &data))
+	if (init_struct(&data))
 		return (1);
 	if (init_mutex(&data))
 		return (1);

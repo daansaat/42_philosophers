@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 10:48:34 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:02:44 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,10 @@ static int	ft_stop(t_data *data, int i, int j, char *str)
 	return (0);
 }
 
-static void	init_philo(char **argv, t_data *data)
+int	init_struct(t_data *data)
 {
 	int	i;
-
-	i = 0;
-	while (i < data->p)
-	{
-		data->philo[i].n = i;
-		data->philo[i].lfork = i;
-		data->philo[i].rfork = (i + 1) % data->p;
-		data->philo[i].meals = -1;
-		if (argv[5])
-			data->philo[i].meals = ft_atoi(argv[5]);
-		data->philo[i].time_last_meal = data->time_start;
-		data->philo[i].data = data;
-		i++;
-	}
-}
-
-int	init_struct(char **argv, t_data *data)
-{
-	data->p = ft_atoi(argv[1]);
+	
 	data->threads = malloc(sizeof(pthread_t) * data->p);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
 	data->philo = malloc(sizeof(t_philo) * data->p);
@@ -70,10 +52,17 @@ int	init_struct(char **argv, t_data *data)
 	data->fed = 0;
 	data->done = 0;
 	data->time_start = ft_time();
-	data->time_die = ft_atoi(argv[2]);
-	data->time_eat = ft_atoi(argv[3]);
-	data->time_sleep = ft_atoi(argv[4]);
-	init_philo(argv, data);
+	i = 0;
+	while (i < data->p)
+	{
+		data->philo[i].n = i;
+		data->philo[i].lfork = i;
+		data->philo[i].rfork = (i + 1) % data->p;
+		data->philo[i].meals = data->meals;
+		data->philo[i].time_last_meal = data->time_start;
+		data->philo[i].data = data;
+		i++;
+	}
 	return (0);
 }
 

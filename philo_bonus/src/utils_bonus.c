@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:33:45 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 21:55:27 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,52 +51,19 @@ int	ft_input_help(void)
 	return (1);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str, long max)
 {
-	unsigned long int	x;
-	unsigned long int	i;
-	unsigned long int	sign;
-
-	x = 0;
-	i = 0;
-	sign = 1;
-	while (str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r' || str[i] == ' ')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	long	nb;
+	
+	nb = 0;
+	while (*str)
 	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
+		if (*str < '0' || *str > '9')
+			return (-1);
+		nb = nb * 10 + (*str - '0');
+		str++;
+		if (nb > max)
+			return (-1);
 	}
-	if (str[i] == '-' || str[i] == '+')
-		return (-1);
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		x = x * 10 + str[i] - '0';
-		i++;
-	}
-	return (x * sign);
-}
-
-int	ft_is_digit(char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		if (argv[i][j] == '+')
-			j++;
-		while (argv[i][j])
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	return (nb);
 }

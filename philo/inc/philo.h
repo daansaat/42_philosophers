@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 10:30:18 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:02:59 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	int				p;
+	int				meals;
 	int				fed;
 	int				done;
 	long			time_start;
@@ -51,7 +52,7 @@ typedef struct s_data
 	t_philo			*philo;
 }				t_data;
 
-int		init_struct(char **argv, t_data *data);
+int		init_struct(t_data *data);
 int		init_mutex(t_data *data);
 int		init_threads(t_data *data);
 
@@ -60,9 +61,8 @@ void	death_monitor(t_data *data);
 void	meals_monitor(t_philo *philo);
 
 long	ft_time(void);
-int		ft_atoi(const char *str);
-int		ft_is_digit(char **argv);
-int		check_if_done(t_data *data);
+long	ft_atol(const char *str, long max);
 int		ft_input_help(void);
+
 
 #endif

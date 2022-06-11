@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:38:29 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:00:48 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 #include <unistd.h>
 #include <string.h>
 
-void	init_struct(t_data *data, char **argv)
+void	init_struct(t_data *data)
 {
-	data->p = ft_atoi(argv[1]);
 	data->time_start = ft_time();
 	data->time_last_meal = data->time_start;
-	data->meals = -1;
-	if (argv[5])
-		data->meals = ft_atoi(argv[5]);
-	data->time_die = ft_atoi(argv[2]);
-	data->time_eat = ft_atoi(argv[3]);
-	data->time_sleep = ft_atoi(argv[4]);
 	data->pid_child = malloc(sizeof(pid_t) * (data->p + 1));
 	if (!data->pid_child)
 		ft_error(data, "malloc() failed");

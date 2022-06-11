@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:52:06 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:01:05 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_data
 	sem_t	*done_eating_id;
 }				t_data;
 
-void	init_struct(t_data *data, char **argv);
+void	init_struct(t_data *data);
 void	init_semaphore(t_data *data);
 void	init_processes(t_data *data);
 void	terminate_children(t_data *data);
@@ -50,11 +50,9 @@ void	terminate_children(t_data *data);
 void	ft_parent_process(t_data *data);
 void	ft_child_process(t_data *data);
 
-int		ft_atoi(const char *str);
-int		ft_is_digit(char **argv);
 int		ft_input_help(void);
+long	ft_atol(const char *str, long max);
 long	ft_time(void);
 void	ft_error(t_data *data, char *str);
-void	clean_up_sem(t_data *data);
 
 #endif

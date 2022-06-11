@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 09:26:45 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 21:50:49 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int	check_if_done(t_data *data)
+static int	check_if_done(t_data *data)
 {
 	pthread_mutex_lock(&data->mutex);
 	if (data->done)
