@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:06 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:03:02 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:07:51 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	terminate_children(t_data *data)
 	while (data->pid_child && data->pid_child[i])
 	{
 		kill(data->pid_child[i], SIGTERM);
-		printf("kill count\n");
 		i++;
 	}
 	free(data->pid_child);
@@ -64,7 +63,7 @@ void	ft_parent_process(t_data *data)
 	{
 		pid = waitpid(0, &status, 0);
 		if (pid == -1)
-			exit(EXIT_FAILURE);
+			ft_error(data, "waitpid() failed");
 		if (WEXITSTATUS(status) == -1)
 			sem_post(data->mutex_id);
 		if (WIFEXITED(status))
