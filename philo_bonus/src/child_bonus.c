@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:33:20 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:52:06 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	print_state(char *str, char *color, t_data *data)
 	time_ms = ft_time() - data->time_start;
 	printf("%s%ldms %sP%d %s\n%s", RESET, time_ms, color, data->n + 1, str, \
 	RESET);
-	data->time_print = ft_time();
+	data->time_now = ft_time();
 	sem_post(data->mutex_id);
 }
 
@@ -58,9 +58,9 @@ static void	eating(t_data *data)
 		sem_post(data->done_eating_id);
 	else
 		sem_post(data->mutex_id);
-	data->time_print = ft_time();
+	data->time_now = ft_time();
 	usleep(data->time_eat * 500);
-	while (ft_time() - data->time_print < data->time_eat)
+	while (ft_time() - data->time_now < data->time_eat)
 		usleep(500);
 }
 
@@ -86,7 +86,7 @@ void	ft_child_process(t_data *data)
 		sem_post(data->can_sit_id);
 		print_state("is sleeping", YELLOW, data);
 		usleep(data->time_sleep * 500);
-		while (ft_time() - data->time_print < data->time_sleep)
+		while (ft_time() - data->time_now < data->time_sleep)
 			usleep(500);
 	}
 }
