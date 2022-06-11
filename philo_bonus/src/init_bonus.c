@@ -6,23 +6,13 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 22:14:43 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:21:37 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 #include <unistd.h>
 #include <string.h>
-
-void	init_struct(t_data *data)
-{
-	data->time_start = ft_time();
-	data->time_last_meal = data->time_start;
-	data->pid_child = malloc(sizeof(pid_t) * (data->p + 1));
-	if (!data->pid_child)
-		ft_error(data, "malloc() failed");
-	memset(data->pid_child, 0, sizeof(pid_t) * (data->p + 1));
-}
 
 void	init_semaphore(t_data *data)
 {
@@ -47,6 +37,12 @@ void	init_processes(t_data *data)
 {
 	int	philo;
 
+	data->pid_child = malloc(sizeof(pid_t) * (data->p + 1));
+	if (!data->pid_child)
+		ft_error(data, "malloc() failed");
+	memset(data->pid_child, 0, sizeof(pid_t) * (data->p + 1));
+	data->time_start = ft_time();
+	data->time_last_meal = data->time_start;
 	philo = 0;
 	while (philo < data->p)
 	{

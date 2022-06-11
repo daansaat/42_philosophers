@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:03 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 22:03:55 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:21:44 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	main(int argc, char **argv)
 		return (ft_input_help());
 	if (argv[5] && data.meals < 1)
 		return (ft_input_help());
-	init_struct(&data);
 	init_semaphore(&data);
 	init_processes(&data);
 	return (0);
