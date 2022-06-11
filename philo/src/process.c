@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:46 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 18:07:24 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/11 08:59:51 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int	check_if_done(t_data *data)
 {
 	pthread_mutex_lock(&data->mutex);
-	if (data->has_died || data->done_eating)
+	if (data->done)
 	{
 		pthread_mutex_unlock(&data->mutex);
 		return (1);
@@ -38,7 +38,7 @@ static void	print_state(char *str, char *color, t_philo *philo)
 	long	time_ms;
 
 	pthread_mutex_lock(&philo->data->mutex);
-	if (!philo->data->has_died && !philo->data->done_eating)
+	if (!philo->data->done)
 	{
 		time_ms = ft_time() - philo->data->time_start;
 		printf("%ldms %sP%d %s\n%s", time_ms, color, philo->n + 1, str, RESET);
