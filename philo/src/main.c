@@ -6,28 +6,12 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:37 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 14:43:30 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/11 10:30:32 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdlib.h>
-
-static void	free_and_destroy(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->p)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&data->mutex);
-	free(data->threads);
-	free(data->forks);
-	free(data->philo);
-}
 
 int	main(int argc, char **argv)
 {
@@ -38,8 +22,8 @@ int	main(int argc, char **argv)
 	if (!ft_is_digit(argv))
 		return (ft_input_help());
 	if (ft_atoi(argv[1]) < 1 || ft_atoi(argv[1]) > 2000
-		|| ft_atoi(argv[2]) <= 0 || ft_atoi(argv[3]) <= 0
-		|| ft_atoi(argv[4]) <= 0)
+		|| ft_atoi(argv[2]) < 1 || ft_atoi(argv[3]) < 1
+		|| ft_atoi(argv[4]) < 1)
 		return (ft_input_help());
 	if (argv[5] && ft_atoi(argv[5]) <= 0)
 		return (ft_input_help());
@@ -49,6 +33,5 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (init_threads(&data))
 		return (-1);
-	free_and_destroy(&data);
 	return (0);
 }

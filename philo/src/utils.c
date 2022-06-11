@@ -6,19 +6,13 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:49 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 14:30:14 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/11 10:30:56 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
 #include <stdio.h>
-
-int	ft_error(char *str)
-{
-	printf("%s\n", str);
-	return (1);
-}
 
 long	ft_time(void)
 {

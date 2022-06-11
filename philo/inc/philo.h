@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 09:09:31 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 10:30:18 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	death_monitor(t_data *data);
 void	meals_monitor(t_philo *philo);
 
 long	ft_time(void);
-int		ft_error(char *str);
 int		ft_atoi(const char *str);
 int		ft_is_digit(char **argv);
 int		check_if_done(t_data *data);
