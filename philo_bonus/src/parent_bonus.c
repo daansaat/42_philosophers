@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:06 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:46:28 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:49:47 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	*meals_monitor(void *arg)
 
 void	ft_parent_process(t_data *data)
 {
+	pthread_t	meals;
 	pid_t		pid;
 	int			status;
-	pthread_t	meals;
 
 	if (pthread_create(&meals, NULL, &meals_monitor, (void *)data) != 0)
 		ft_error(data, "pthread_create() failed");
