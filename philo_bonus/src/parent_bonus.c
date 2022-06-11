@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:06 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 13:09:30 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:03:02 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	terminate_children(t_data *data)
 	while (data->pid_child && data->pid_child[i])
 	{
 		kill(data->pid_child[i], SIGTERM);
+		printf("kill count\n");
 		i++;
 	}
 	free(data->pid_child);
 	printf("%s", RESET);
-	exit(EXIT_SUCCESS);
 }
 
 static void	*meals_monitor(void *arg)
@@ -58,17 +58,18 @@ void	ft_parent_process(t_data *data)
 
 	if (pthread_create(&meals, NULL, &meals_monitor, (void *)data) != 0)
 		ft_error(data, "pthread_create() failed");
-	pthread_detach(meals);
+	if (pthread_detach(meals) != 0)
+		ft_error(data, "pthread_detach() failed");
 	while (1)
 	{
 		pid = waitpid(0, &status, 0);
 		if (pid == -1)
 			exit(EXIT_FAILURE);
+		if (WEXITSTATUS(status) == -1)
+			sem_post(data->mutex_id);
 		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) == -1)
-				sem_post(data->mutex_id);
 			terminate_children(data);
-		}
+		if (WIFSIGNALED(status))
+			break ;
 	}
 }
