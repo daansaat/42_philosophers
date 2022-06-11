@@ -6,13 +6,15 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 12:01:24 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:33:35 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
+
 # include <semaphore.h>
+# include <stdlib.h>
 
 # define RED "\033[1;31m"
 # define GREEN "\033[0;32m"

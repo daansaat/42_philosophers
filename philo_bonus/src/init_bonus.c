@@ -6,12 +6,11 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 12:01:31 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:34:03 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 

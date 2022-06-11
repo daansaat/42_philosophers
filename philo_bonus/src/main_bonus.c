@@ -6,25 +6,11 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:03 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 12:54:41 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 14:33:59 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <stdlib.h>
-#include <stdio.h>
-
-void	clean_up_sem(t_data *data)
-{
-	sem_unlink("/fork");
-	sem_unlink("/can_sit");
-	sem_unlink("/mutex");
-	sem_unlink("/done_eating");
-	sem_unlink("/death");
-	sem_close(data->fork_id);
-	sem_close(data->can_sit_id);
-	sem_close(data->mutex_id);
-}
 
 int	main(int argc, char **argv)
 {
