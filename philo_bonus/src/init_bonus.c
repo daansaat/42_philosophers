@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 22:00:48 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 22:14:43 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,16 @@ void	init_semaphore(t_data *data)
 {
 	data->fork_id = sem_open("/fork",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p);
-	if (data->fork_id)
-		sem_unlink("/fork");
+	sem_unlink("/fork");
 	data->can_sit_id = sem_open("/can_sit",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p / 2);
-	if (data->can_sit_id)
-		sem_unlink("/can_sit");
+	sem_unlink("/can_sit");
 	data->mutex_id = sem_open("/mutex",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
-	if (data->mutex_id)
-		sem_unlink("/mutex");
+	sem_unlink("/mutex");
 	data->done_eating_id = sem_open("/done_eating",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
-	if (data->done_eating_id)
-		sem_unlink("/done_eating");
+	sem_unlink("/done_eating");
 	if (data->fork_id == SEM_FAILED || data->mutex_id == SEM_FAILED \
 	|| data->done_eating_id == SEM_FAILED || data->can_sit_id == SEM_FAILED)
 		ft_error(data, "sem_open() failed");
