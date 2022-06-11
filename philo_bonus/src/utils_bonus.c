@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 11:59:11 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 11:05:05 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	ft_error(t_data *data, char *str)
 {
 	printf("%s%s%s\n", RED, str, RESET);
-	kill_children(data);
+	terminate_children(data);
 	clean_up_sem(data);
 	sem_close(data->done_eating_id);
 	sem_close(data->death_id);

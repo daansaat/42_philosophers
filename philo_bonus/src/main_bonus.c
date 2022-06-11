@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:03 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 11:59:11 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/11 12:54:41 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,5 @@ int	main(int argc, char **argv)
 	init_struct(&data, argv);
 	init_semaphore(&data);
 	init_processes(&data);
-	while (waitpid(0, NULL, 0) > 0)
-		;
-	clean_up_sem(&data);
 	return (0);
 }

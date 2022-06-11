@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:00 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 14:08:56 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/11 12:01:31 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	init_semaphore(t_data *data)
 	sem_unlink("/can_sit");
 	sem_unlink("/mutex");
 	sem_unlink("/done_eating");
-	sem_unlink("/death");
 	data->fork_id = sem_open("/fork",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, data->p);
 	data->can_sit_id = sem_open("/can_sit",
@@ -47,11 +46,8 @@ void	init_semaphore(t_data *data)
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 1);
 	data->done_eating_id = sem_open("/done_eating",
 			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
-	data->death_id = sem_open("/death",
-			O_CREAT | O_EXCL, S_IRUSR | S_IWUSR, 0);
 	if (data->fork_id == SEM_FAILED || data->mutex_id == SEM_FAILED \
-	|| data->done_eating_id == SEM_FAILED || data->death_id == SEM_FAILED \
-	|| data->can_sit_id == SEM_FAILED)
+	|| data->done_eating_id == SEM_FAILED || data->can_sit_id == SEM_FAILED)
 		ft_error(data, "sem_open() failed");
 }
 
@@ -70,5 +66,5 @@ void	init_processes(t_data *data)
 			ft_child_process(data);
 		philo++;
 	}
-	ft_parent_monitor(data);
+	ft_parent_process(data);
 }

@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/10 14:42:25 by dsaat         ########   odam.nl         */
+/*   Updated: 2022/06/11 12:54:24 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+
+#include <stdlib.h>
 
 static void	*death_monitor(void *arg)
 {
@@ -27,8 +29,7 @@ static void	*death_monitor(void *arg)
 		{
 			printf("%s%ldms %sP%d has died\n%s", RESET, ft_time() - \
 			data->time_start, RED, data->n + 1, RESET);
-			sem_post(data->death_id);
-			break ;
+			exit(0);
 		}
 		sem_post(data->mutex_id);
 	}
@@ -69,8 +70,9 @@ void	ft_child_process(t_data *data)
 	pthread_t	death;
 
 	if (pthread_create(&death, NULL, &death_monitor, (void *)data) != 0)
-		ft_error(data, "pthread_create() failed");
-	pthread_detach(death);
+		exit(-1);
+	if (pthread_detach(death) != 0)
+		exit(-1);
 	while (1)
 	{
 		print_state("is thinking", PURPLE, data);
