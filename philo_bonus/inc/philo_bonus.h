@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:53 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 22:22:05 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/12 11:15:48 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	init_processes(t_data *data);
 
 void	ft_parent_process(t_data *data);
 void	ft_child_process(t_data *data);
-void	terminate_children(t_data *data);
+void	ft_stop(t_data *data);
 
-int		ft_input_help(void);
+void	ft_error(t_data *data, char *str);
 long	ft_atol(const char *str, long max);
 long	ft_time(void);
-void	ft_error(t_data *data, char *str);
+int		ft_input_help(void);
 
 #endif

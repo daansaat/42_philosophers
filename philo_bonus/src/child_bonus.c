@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:52:06 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/12 11:56:38 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_child_process(t_data *data)
 		exit(-1);
 	if (pthread_detach(death) != 0)
 		exit(-1);
+	// if (data->n % 2 == 1)
+	// 	usleep(100000);
 	while (1)
 	{
 		print_state("is thinking", PURPLE, data);

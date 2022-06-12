@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 21:55:27 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/12 11:48:15 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 void	ft_error(t_data *data, char *str)
 {
 	printf("%s%s%s\n", RED, str, RESET);
-	terminate_children(data);
-	exit(EXIT_FAILURE);
+	ft_stop(data);
 }
 
 long	ft_time(void)

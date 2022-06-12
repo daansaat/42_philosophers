@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:06 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 14:49:47 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/12 11:49:35 by daansaat      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 #include <signal.h>
 #include <pthread.h>
 
-void	terminate_children(t_data *data)
+void	ft_stop(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (data->pid_child && data->pid_child[i]
-		&& data->pid_child[i] != -1)
+	if (data->pid_child)
 	{
-		kill(data->pid_child[i], SIGTERM);
-		i++;
-	}
-	free(data->pid_child);
+		while (data->pid_child[i] && data->pid_child[i] != -1)
+		{
+			kill(data->pid_child[i], SIGTERM);
+			i++;
+		}
+		free(data->pid_child);
+	} 
 	printf("%s", RESET);
+	exit(EXIT_SUCCESS);
 }
 
 static void	*meals_monitor(void *arg)
@@ -45,7 +48,7 @@ static void	*meals_monitor(void *arg)
 			sem_post(data->mutex_id);
 	}
 	sem_close(data->done_eating_id);
-	terminate_children(data);
+	ft_stop(data);
 	return (0);
 }
 
@@ -67,8 +70,6 @@ void	ft_parent_process(t_data *data)
 		if (WEXITSTATUS(status) == -1)
 			sem_post(data->mutex_id);
 		if (WIFEXITED(status))
-			terminate_children(data);
-		if (WIFSIGNALED(status))
-			break ;
+			ft_stop(data);
 	}
 }
