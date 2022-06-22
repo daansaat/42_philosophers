@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:28 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 22:02:44 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/22 13:17:53 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_stop(t_data *data, int i, int j, char *str)
 int	init_struct(t_data *data)
 {
 	int	i;
-	
+
 	data->threads = malloc(sizeof(pthread_t) * data->p);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->p);
 	data->philo = malloc(sizeof(t_philo) * data->p);

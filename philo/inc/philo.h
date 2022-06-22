@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:40 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/11 22:02:59 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/22 13:17:37 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ void	meals_monitor(t_philo *philo);
 long	ft_time(void);
 long	ft_atol(const char *str, long max);
 int		ft_input_help(void);
-
 
 #endif

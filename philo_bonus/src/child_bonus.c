@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:22:57 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/12 11:56:38 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/22 13:18:30 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
-
 
 static void	*death_monitor(void *arg)
 {

@@ -6,7 +6,7 @@
 /*   By: dsaat <dsaat@student.codam.nl>               +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:23:09 by dsaat         #+#    #+#                 */
-/*   Updated: 2022/06/12 11:48:15 by daansaat      ########   odam.nl         */
+/*   Updated: 2022/06/22 13:19:23 by dsaat         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_input_help(void)
 long	ft_atol(const char *str, long max)
 {
 	long	nb;
-	
+
 	nb = 0;
 	while (*str)
 	{
